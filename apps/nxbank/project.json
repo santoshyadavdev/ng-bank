@@ -8,15 +8,25 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/nxbank",
         "index": "apps/nxbank/src/index.html",
         "main": "apps/nxbank/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/nxbank/tsconfig.app.json",
-        "assets": ["apps/nxbank/src/favicon.ico", "apps/nxbank/src/assets"],
-        "styles": ["apps/nxbank/src/styles.scss"],
+        "assets": [
+          "apps/nxbank/src/favicon.ico",
+          "apps/nxbank/src/assets"
+        ],
+        "styles": [
+          "@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/nxbank/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -66,14 +76,21 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/nxbank/**/*.ts", "apps/nxbank/**/*.html"]
+        "lintFilePatterns": [
+          "apps/nxbank/**/*.ts",
+          "apps/nxbank/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/nxbank/jest.config.ts",
         "passWithNoTests": true
