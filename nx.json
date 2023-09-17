@@ -75,10 +75,19 @@
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "standalone": true,
+      "buildable": true
     },
     "@nx/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "standalone": true
+    },
+    "@nx/angular:directive": {
+      "standalone": true
+    },
+    "@nx/angular:pipe": {
+      "standalone": true
     }
   }
 }
