@@ -27,8 +27,8 @@ import { AsyncPipe, NgIf } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'nxbank';
-  vm$: Observable<{ isXSmallScreen: boolean }>;
+  readonly title = 'ngbank';
+  readonly vm$: Observable<{ isXSmallScreen: boolean }>;
 
   constructor(breakpointObserver: BreakpointObserver) {
     this.vm$ = breakpointObserver.observe([Breakpoints.XSmall]).pipe(
