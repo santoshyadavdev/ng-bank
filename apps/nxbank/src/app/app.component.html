@@ -1,10 +1,10 @@
-<div class="container" *ngIf="vm$ | async as vm">
-  <mat-toolbar color="primary" class="toolbar">
+<div class="flex flex-col absolute top-0 left-0 right-0 bottom-0" *ngIf="vm$ | async as vm">
+  <mat-toolbar color="primary" class="fixed z-[2] sm:static">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <h1 class="app-name">{{ title }}</h1>
+    <h1 class="!ml-2">{{ title }}</h1>
   </mat-toolbar>
 
-  <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-container class="mt-[56px] sm:mt-0 grow shrink-0 sm:shrink basis-auto sm:basis-0">
     <mat-sidenav #snav [mode]="vm.isXSmallScreen ? 'over' : 'side'"
                  [fixedInViewport]="vm.isXSmallScreen" fixedTopGap="56" [opened]="!vm.isXSmallScreen">
       <mat-nav-list>
