@@ -1,31 +1,24 @@
 {
-  "name": "nxbank",
+  "name": "ngbank",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "ngbank",
-  "sourceRoot": "apps/nxbank/src",
+  "sourceRoot": "apps/ngbank/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/nxbank",
-        "index": "apps/nxbank/src/index.html",
-        "main": "apps/nxbank/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
-        "tsConfig": "apps/nxbank/tsconfig.app.json",
-        "assets": [
-          "apps/nxbank/src/favicon.ico",
-          "apps/nxbank/src/assets"
-        ],
+        "outputPath": "dist/apps/ngbank",
+        "index": "apps/ngbank/src/index.html",
+        "main": "apps/ngbank/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/ngbank/tsconfig.app.json",
+        "assets": ["apps/ngbank/src/favicon.ico", "apps/ngbank/src/assets"],
         "styles": [
           "@angular/material/prebuilt-themes/indigo-pink.css",
-          "apps/nxbank/src/styles.scss"
+          "apps/ngbank/src/styles.scss"
         ],
         "scripts": []
       },
@@ -60,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "nxbank:build:production"
+          "browserTarget": "ngbank:build:production"
         },
         "development": {
-          "browserTarget": "nxbank:build:development"
+          "browserTarget": "ngbank:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -71,28 +64,21 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "nxbank:build"
+        "browserTarget": "ngbank:build"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/nxbank/**/*.ts",
-          "apps/nxbank/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/ngbank/**/*.ts", "apps/ngbank/**/*.html"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/nxbank/jest.config.ts",
+        "jestConfig": "apps/ngbank/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -105,7 +91,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "nxbank:build"
+        "buildTarget": "ngbank:build"
       }
     }
   }
