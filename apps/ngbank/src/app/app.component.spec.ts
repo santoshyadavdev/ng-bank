@@ -9,9 +9,9 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it(`should have as title 'nxbank'`, () => {
+  it(`should have as title 'ngbank'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('nxbank');
+    expect(app.title).toEqual('ngbank');
   });
 });

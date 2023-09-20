@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'nxbank',
+  displayName: 'ngbank',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/nxbank',
+  coverageDirectory: '../../coverage/apps/ngbank',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
