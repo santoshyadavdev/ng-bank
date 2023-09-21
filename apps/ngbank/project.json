@@ -16,10 +16,7 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ngbank/tsconfig.app.json",
         "assets": ["apps/ngbank/src/favicon.ico", "apps/ngbank/src/assets"],
-        "styles": [
-          "@angular/material/prebuilt-themes/indigo-pink.css",
-          "apps/ngbank/src/styles.scss"
-        ],
+        "styles": ["apps/ngbank/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
