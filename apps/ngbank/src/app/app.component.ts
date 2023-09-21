@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { map, Observable } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 
 @Component({
   standalone: true,
@@ -21,7 +20,6 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     AsyncPipe,
     NgIf,
-    MatCardModule,
   ],
   selector: 'ngbank-root',
   templateUrl: './app.component.html',
