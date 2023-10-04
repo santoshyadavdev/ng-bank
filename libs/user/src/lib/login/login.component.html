@@ -1,1 +1,72 @@
-<p>login works!</p>
+<ngbank-front-page>
+  <h1 class="mat-headline-1 mb-6">
+    Where banking meets<br />
+    the summit of excellence!
+  </h1>
+
+  <form class="mb-6" [formGroup]="form">
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Enter your email"
+        type="email"
+        formControlName="email"
+      />
+      <mat-error *ngIf="email?.errors?.['required']"
+        >Email is required.</mat-error
+      >
+      <mat-error *ngIf="email?.errors?.['email']">Not a valid email.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="Enter your password"
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="password?.errors?.['required']"
+        >Password is required.</mat-error
+      >
+    </mat-form-field>
+
+    <button type="submit" mat-flat-button color="primary" class="w-100">
+      Sign in
+    </button>
+  </form>
+
+  <div class="row d-flex align-items-center">
+    <div class="col-6">
+      <p class="d-flex align-items-center">
+        Don't have an account?
+        <a
+          routerLink="/sign-up"
+          class="ml-1"
+          mat-button
+          color="primary"
+          title="Sign up"
+          >Sign up</a
+        >
+      </p>
+    </div>
+
+    <div class="col-6">
+      <p class="text-right">
+        <a href="#" mat-button color="primary" title="Forgot password"
+          >Forgot password?</a
+        >
+      </p>
+    </div>
+  </div>
+</ngbank-front-page>

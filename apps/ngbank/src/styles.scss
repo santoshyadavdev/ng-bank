@@ -50,6 +50,15 @@ $ngbank-dark-theme: mat.define-dark-theme(
 
 @include mat.typography-hierarchy($ngbank-typography);
 
+@import 'styles/utilities';
+@import 'styles/grid';
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
