@@ -1,33 +1,48 @@
+@use 'sass:math';
+@import 'variables';
+
 .container {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: $grid-gutter-width/2;
+  padding-right: $grid-gutter-width/2;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
+  margin-left: -($grid-gutter-width/2);
+  margin-right: -($grid-gutter-width/2);
 }
 
 [class*='col-'] {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: $grid-gutter-width/2;
+  padding-right: $grid-gutter-width/2;
   flex-shrink: 0;
   max-width: 100%;
   width: 100%;
 }
 
-.col-4 {
-  flex: 0 0 auto;
-  width: 4/12 * 100%;
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    max-width: math.div($i, 12) * 100%;
+    flex: 1 0 math.div($i, 12) * 100%;
+  }
+
+  .offset-#{$i} {
+    margin-left: math.div($i, 12) * 100%;
+  }
 }
 
-.col-6 {
-  flex: 0 0 auto;
-  width: 6/12 * 100%;
-}
+@each $name, $breakpoint in $grid-breakpoints {
+  @media (min-width: $breakpoint + 1) {
+    @for $i from 1 through $grid-columns {
+      .col-#{$name}-#{$i} {
+        max-width: math.div($i, 12) * 100%;
+        flex: 1 0 math.div($i, 12) * 100%;
+      }
 
-.offset-1 {
-  margin-left: 1/12 * 100%;
+      .offset-#{$name}-#{$i} {
+        margin-left: math.div($i, 12) * 100%;
+      }
+    }
+  }
 }

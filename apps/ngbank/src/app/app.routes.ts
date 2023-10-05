@@ -6,9 +6,4 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('@ngbank/user').then((mod) => mod.LoginComponent),
   },
-  {
-    path: 'sign-up',
-    loadComponent: () =>
-      import('@ngbank/user').then((mod) => mod.RegistrationComponent),
-  },
 ];

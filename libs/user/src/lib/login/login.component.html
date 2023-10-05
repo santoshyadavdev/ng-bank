@@ -1,10 +1,10 @@
 <ngbank-front-page>
-  <h1 class="mat-headline-1 mb-6">
+  <h1 class="mat-headline-1 mb-5">
     Where banking meets<br />
     the summit of excellence!
   </h1>
 
-  <form class="mb-6" [formGroup]="form">
+  <form class="mb-4" [formGroup]="form">
     <mat-form-field appearance="outline" class="w-100 mb-3">
       <mat-label>Email</mat-label>
       <input
@@ -24,17 +24,19 @@
       <input
         matInput
         placeholder="Enter your password"
-        [type]="hide ? 'password' : 'text'"
+        [type]="hidePassword ? 'password' : 'text'"
         formControlName="password"
       />
       <button
         mat-icon-button
         matSuffix
-        (click)="hide = !hide"
+        (click)="hidePassword = !hidePassword"
         [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
+        [attr.aria-pressed]="hidePassword"
       >
-        <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+        <mat-icon>{{
+          hidePassword ? 'visibility' : 'visibility_off'
+        }}</mat-icon>
       </button>
       <mat-error *ngIf="password?.errors?.['required']"
         >Password is required.</mat-error
@@ -50,20 +52,13 @@
     <div class="col-6">
       <p class="d-flex align-items-center">
         Don't have an account?
-        <a
-          routerLink="/sign-up"
-          class="ml-1"
-          mat-button
-          color="primary"
-          title="Sign up"
-          >Sign up</a
-        >
+        <a class="ms-1" mat-button color="primary" title="Sign up">Sign up</a>
       </p>
     </div>
 
     <div class="col-6">
       <p class="text-right">
-        <a href="#" mat-button color="primary" title="Forgot password"
+        <a mat-button color="primary" title="Forgot password"
           >Forgot password?</a
         >
       </p>

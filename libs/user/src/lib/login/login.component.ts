@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +20,6 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     MatInputModule,
     RouterLink,
-    NgOptimizedImage,
     MatButtonModule,
     FrontPageComponent,
     ReactiveFormsModule,
@@ -30,7 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  hide = true;
+  hidePassword = true;
 
   readonly form: FormGroup<LoginForm>;
 

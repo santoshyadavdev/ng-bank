@@ -1,40 +1,55 @@
+@import '../variables';
+
 .my-auto {
   margin-top: auto !important;
   margin-bottom: auto !important;
 }
 
-.ml-1 {
-  margin-left: 0.25rem !important;
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
-.mb {
-  &-0 {
-    margin-bottom: 0 !important;
+@each $name, $spacer in $spacers {
+  .pe-#{$name} {
+    padding-right: $spacer !important;
+  }
+  .ps-#{$name} {
+    padding-left: $spacer !important;
+  }
+  .pt-#{$name} {
+    padding-top: $spacer !important;
+  }
+  .pb-#{$name} {
+    padding-bottom: $spacer !important;
+  }
+  .px-#{$name} {
+    padding-right: $spacer !important;
+    padding-left: $spacer !important;
+  }
+  .py-#{$name} {
+    padding-top: $spacer !important;
+    padding-bottom: $spacer !important;
   }
 
-  &-2 {
-    margin-bottom: 0.5rem !important;
+  .me-#{$name} {
+    margin-right: $spacer !important;
   }
-
-  &-3 {
-    margin-bottom: 1rem !important;
+  .ms-#{$name} {
+    margin-left: $spacer !important;
   }
-
-  &-4 {
-    margin-bottom: 1.25rem !important;
+  .mt-#{$name} {
+    margin-top: $spacer !important;
   }
-
-  &-5 {
-    margin-bottom: 1.5rem !important;
+  .mb-#{$name} {
+    margin-bottom: $spacer !important;
   }
-
-  &-6 {
-    margin-bottom: 2rem !important;
+  .mx-#{$name} {
+    margin-right: $spacer !important;
+    margin-left: $spacer !important;
   }
-}
-
-.mt {
-  &-2 {
-    margin-top: 0.5rem !important;
+  .my-#{$name} {
+    margin-top: $spacer !important;
+    margin-bottom: $spacer !important;
   }
 }

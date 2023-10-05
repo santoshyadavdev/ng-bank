@@ -10,23 +10,37 @@
   }
 }
 
-.container > .row {
-  height: calc(100vh - 4rem);
+header a {
+  text-decoration: none;
+  color: inherit;
 }
 
 figure {
-  height: 100%;
-  border-radius: 1rem;
-  overflow: hidden;
-  position: relative;
-  margin: 0;
-
   img {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container > .row {
+    height: calc(100vh - 4rem);
+  }
+
+  figure {
     height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    object-fit: cover;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      object-fit: cover;
+    }
   }
 }
