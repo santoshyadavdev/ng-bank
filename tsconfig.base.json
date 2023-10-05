@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngbank/user": ["libs/user/src/index.ts"]
+      "@ngbank/user-store": ["libs/user/store/src/index.ts"],
+      "@ngbank/user/ui": ["libs/user/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
