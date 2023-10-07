@@ -12,7 +12,7 @@ export class LoginService {
   constructor() {}
 
   createAccount(user: User) {
-    return this.http.post(`${environment.apiEndpoint}/account`, {
+    return this.http.post<User>(`${environment.apiEndpoint}/account`, {
       userId: user.userId,
       email: user.email,
       password: user.password,
@@ -31,7 +31,7 @@ export class LoginService {
   }
 
   creatJWTToken() {
-    return this.http.post(`${environment.apiEndpoint}/account/jwt`, {});
+    return this.http.post<string>(`${environment.apiEndpoint}/account/jwt`, {});
   }
 
   logout() {

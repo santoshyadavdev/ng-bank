@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '@ngbank/user/store';
+import { Store } from '@ngrx/store';
+import { userActions } from '@ngbank/user/store';
 
 @Component({
   selector: 'ngbank-login',
@@ -10,11 +11,9 @@ import { LoginService } from '@ngbank/user/store';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginService = inject(LoginService);
+  store = inject(Store);
 
   emailLoign(userName: string, password: string) {
-    this.loginService.emailLogin(userName, password).subscribe((user) => {
-      console.log(user);
-    });
+    this.store.dispatch(userActions.emailLogin({ userName, password }));
   }
 }

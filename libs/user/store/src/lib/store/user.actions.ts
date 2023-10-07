@@ -6,7 +6,7 @@ export const userActions = createActionGroup({
   events: {
     createAccount: props<{ user: User }>(),
     createAccountSuccess: props<{ user: User }>(),
-    creteAccountFailure: props<{ error: any }>(),
+    createAccountFailure: props<{ error: any }>(),
     emailLogin: props<{ userName: string; password: string }>(),
     emailLoginSuccess: props<{ user: User }>(),
     emailLoginFailure: props<{ error: any }>(),
