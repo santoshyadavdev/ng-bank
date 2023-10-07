@@ -4,6 +4,7 @@ export const userRoutes: Route[] = [
   {
     path: '',
     redirectTo: 'login',
+    pathMatch: 'full',
   },
   {
     path: 'login',

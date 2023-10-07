@@ -56,6 +56,16 @@ export const createJWTToken$ = createEffect(
   { functional: true }
 );
 
+export const redirectAfterLogin$ = createEffect(
+  (actions$ = inject(Actions), router = inject(Router)) => {
+    return actions$.pipe(
+      ofType(userActions.emailLoginSuccess, userActions.createAccountSuccess),
+      map(() => router.navigate(['/']))
+    );
+  },
+  { functional: true, dispatch: false }
+);
+
 export const logout$ = createEffect(
   (
     actions$ = inject(Actions),

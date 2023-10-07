@@ -11,16 +11,25 @@ import {
   createJWTToken$,
   login$,
   logout$,
+  redirectAfterLogin$,
   userFeature,
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideAnimations(),
     provideStore(),
     provideState(userFeature),
-    provideEffects({ login$, createAccount$, createJWTToken$, logout$ }),
+    provideEffects({
+      login$,
+      createAccount$,
+      createJWTToken$,
+      logout$,
+      redirectAfterLogin$,
+    }),
   ],
 };
