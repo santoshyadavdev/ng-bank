@@ -1,1 +1,1 @@
-export * from './lib/user-store/user-store.component';
+export * from './lib/login.service';
