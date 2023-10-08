@@ -60,7 +60,7 @@ export const redirectAfterLogin$ = createEffect(
   (actions$ = inject(Actions), router = inject(Router)) => {
     return actions$.pipe(
       ofType(userActions.emailLoginSuccess, userActions.createAccountSuccess),
-      map(() => router.navigate(['/']))
+      map(() => router.navigate(['/register']))
     );
   },
   { functional: true, dispatch: false }
