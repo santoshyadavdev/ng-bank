@@ -4,7 +4,7 @@
     the summit of excellence!
   </h1>
 
-  <form class="mb-4" [formGroup]="form">
+  <form class="mb-4" [formGroup]="form" (ngSubmit)="login()">
     <mat-form-field appearance="outline" class="w-100 mb-3">
       <mat-label>Email</mat-label>
       <input
@@ -43,7 +43,13 @@
       >
     </mat-form-field>
 
-    <button type="submit" mat-flat-button color="primary" class="w-100">
+    <button
+      type="submit"
+      mat-flat-button
+      color="primary"
+      class="w-100"
+      [disabled]="!form.valid"
+    >
       Sign in
     </button>
   </form>
@@ -51,6 +57,7 @@
   <div class="d-sm-flex align-items-center">
     <p class="mb-0 d-flex align-items-center">
       Don't have an account?<a
+        [routerLink]="['/register']"
         class="ms-2"
         mat-button
         color="primary"

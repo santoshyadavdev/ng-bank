@@ -12,6 +12,8 @@ import {
 import { LoginForm } from '../_models/login-form.model';
 import { MatIconModule } from '@angular/material/icon';
 import { FrontPageComponent } from '@ngbank/ui';
+import { Store } from '@ngrx/store';
+import { userActions } from '@ngbank/user/store';
 
 @Component({
   selector: 'ngbank-login',
@@ -33,7 +35,16 @@ export class LoginComponent {
 
   readonly form: FormGroup<LoginForm>;
 
+  get email() {
+    return this.form.get('email');
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
+
   private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly store: Store = inject(Store);
 
   constructor() {
     this.form = this.fb.group({
@@ -48,11 +59,13 @@ export class LoginComponent {
     });
   }
 
-  get email() {
-    return this.form.get('email');
-  }
-
-  get password() {
-    return this.form.get('password');
+  login() {
+    if (!!this.form.value.email && !!this.form.value.password)
+      this.store.dispatch(
+        userActions.emailLogin({
+          userName: this.form.value.email,
+          password: this.form.value.password,
+        })
+      );
   }
 }
