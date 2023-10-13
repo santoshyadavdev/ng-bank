@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DataDrivenComponent } from './data-driven.component';
+import { PageComponent } from './page.component';
 
-describe('DataDrivenComponent', () => {
-  let component: DataDrivenComponent;
-  let fixture: ComponentFixture<DataDrivenComponent>;
+describe('PageComponent', () => {
+  let component: PageComponent;
+  let fixture: ComponentFixture<PageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DataDrivenComponent],
+      imports: [PageComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DataDrivenComponent);
+    fixture = TestBed.createComponent(PageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

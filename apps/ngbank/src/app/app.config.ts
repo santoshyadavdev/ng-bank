@@ -15,7 +15,7 @@ import {
   userFeature,
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 export const appConfig: ApplicationConfig = {

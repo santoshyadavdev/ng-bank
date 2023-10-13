@@ -1,40 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { map, Observable } from 'rxjs';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [
-    RouterModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    AsyncPipe,
-    NgIf,
-  ],
+  imports: [RouterOutlet],
   selector: 'ngbank-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: '<router-outlet></router-outlet>',
+  styles: [``],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  readonly title = 'ngbank';
-  readonly vm$: Observable<{ isXSmallScreen: boolean }>;
-
-  constructor(breakpointObserver: BreakpointObserver) {
-    this.vm$ = breakpointObserver.observe([Breakpoints.XSmall]).pipe(
-      map(() => ({
-        isXSmallScreen: breakpointObserver.isMatched(Breakpoints.XSmall),
-      }))
-    );
-  }
-}
+export class AppComponent {}

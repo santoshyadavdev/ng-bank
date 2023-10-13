@@ -1,6 +1,9 @@
 @use '@angular/material' as mat;
-@import 'styles/variables';
-@import 'styles/palette';
+@import 'variables';
+@import 'palette';
+@import 'utilities';
+@import 'overrides';
+@import 'grid';
 
 @include mat.core();
 
@@ -49,6 +52,12 @@ $ngbank-dark-theme: mat.define-dark-theme(
 }
 
 @include mat.typography-hierarchy($ngbank-typography);
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
 
 html,
 body {

@@ -1,0 +1,30 @@
+<ngbank-page
+  [hideToolbar]="true"
+  [toggleSideNav]="menuButtonClick"
+  [fullscreenRight]="true"
+>
+  <div class="row">
+    <div class="col-md-6 col-lg-5 d-flex flex-column">
+      <ngbank-toolbar
+        (menuButtonClick)="menuButtonClick.emit()"
+      ></ngbank-toolbar>
+
+      <div class="my-auto py-3">
+        <ng-content></ng-content>
+      </div>
+    </div>
+
+    <div class="col-md-6 offset-lg-1 d-none d-md-block">
+      <figure>
+        <img
+          ngSrc="/assets/ui/images/christopher-burns-Y3PD_9c2xms-unsplash.jpg"
+          title="Cerro Torre"
+          alt="Cerro Torre"
+          width="1920"
+          height="2053"
+          class="img-fluid"
+        />
+      </figure>
+    </div>
+  </div>
+</ngbank-page>
