@@ -1,9 +1,13 @@
-<div class="container">
+<ngbank-page
+  [hideToolbar]="true"
+  [toggleSideNav]="menuButtonClick"
+  [fullscreenRight]="true"
+>
   <div class="row">
-    <div class="col-md-6 col-lg-5 col-xl-4 offset-xl-1 d-flex flex-column">
-      <header>
-        <a routerLink="/" class="mat-headline-5" title="ngbank">ngbank</a>
-      </header>
+    <div class="col-md-6 col-lg-5 d-flex flex-column">
+      <ngbank-toolbar
+        (menuButtonClick)="menuButtonClick.emit()"
+      ></ngbank-toolbar>
 
       <div class="my-auto py-3">
         <ng-content></ng-content>
@@ -18,8 +22,9 @@
           alt="Cerro Torre"
           width="1920"
           height="2053"
+          class="img-fluid"
         />
       </figure>
     </div>
   </div>
-</div>
+</ngbank-page>

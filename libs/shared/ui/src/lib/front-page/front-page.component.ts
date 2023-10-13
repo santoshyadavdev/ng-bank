@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { PageComponent } from '../page/page.component';
 
 @Component({
   selector: 'ngbank-front-page',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterLink],
+  imports: [CommonModule, NgOptimizedImage, ToolbarComponent, PageComponent],
   templateUrl: './front-page.component.html',
   styleUrls: ['./front-page.component.scss'],
 })
-export class FrontPageComponent {}
+export class FrontPageComponent {
+  @Output() readonly menuButtonClick = new EventEmitter<void>();
+}
