@@ -36,9 +36,15 @@ export class LoginComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
 
   constructor() {
-    this.form = this.fb.nonNullable.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+    this.form = this.fb.group({
+      email: this.fb.control('', {
+        validators: [Validators.required, Validators.email],
+        nonNullable: true,
+      }),
+      password: this.fb.control('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
     });
   }
 
