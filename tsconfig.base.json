@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ngbank/ui": ["libs/shared/ui/src/index.ts"],
       "@ngbank/user": ["libs/user/src/index.ts"]
     }
   },

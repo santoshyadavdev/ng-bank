@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { FrontPageComponent } from '../front-page/front-page.component';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +11,7 @@ import {
 } from '@angular/forms';
 import { LoginForm } from '../_models/login-form.model';
 import { MatIconModule } from '@angular/material/icon';
+import { FrontPageComponent } from '@ngbank/ui';
 
 @Component({
   selector: 'ngbank-login',
