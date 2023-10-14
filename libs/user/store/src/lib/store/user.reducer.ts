@@ -1,15 +1,16 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { User } from '../user';
 import { userActions } from './user.actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface UserState {
   user: User | null;
-  error: string;
+  error: HttpErrorResponse | null;
 }
 
 const initialState: UserState = {
   user: null,
-  error: '',
+  error: null,
 };
 
 const userReducer = createReducer(

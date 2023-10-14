@@ -4,6 +4,7 @@ import { userActions } from './user.actions';
 import { exhaustMap, map, catchError, of } from 'rxjs';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const login$ = createEffect(
   (actions$ = inject(Actions), loginServiece = inject(LoginService)) => {
@@ -12,7 +13,7 @@ export const login$ = createEffect(
       exhaustMap(({ userName, password }) =>
         loginServiece.emailLogin(userName, password).pipe(
           map((user) => userActions.emailLoginSuccess({ user })),
-          catchError((error: string) =>
+          catchError((error: HttpErrorResponse) =>
             of(userActions.emailLoginFailure({ error }))
           )
         )
@@ -29,7 +30,7 @@ export const createAccount$ = createEffect(
       exhaustMap(({ user }) =>
         loginServiece.createAccount(user).pipe(
           map((user) => userActions.createAccountSuccess({ user })),
-          catchError((error: string) =>
+          catchError((error: HttpErrorResponse) =>
             of(userActions.createAccountFailure({ error }))
           )
         )
@@ -46,7 +47,7 @@ export const createJWTToken$ = createEffect(
       exhaustMap(() =>
         loginServiece.creatJWTToken().pipe(
           map((token) => userActions.createJWTTokenSuccess({ token })),
-          catchError((error: string) =>
+          catchError((error: HttpErrorResponse) =>
             of(userActions.createJWTTokenFailure({ error }))
           )
         )

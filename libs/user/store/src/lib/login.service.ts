@@ -13,8 +13,6 @@ export class LoginService {
   );
   http = inject(HttpClient);
 
-  constructor() {}
-
   createAccount(user: User) {
     return this.http.post<User>(
       `${environment.apiEndpoint}/account`,
