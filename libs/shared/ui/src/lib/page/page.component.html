@@ -1,8 +1,15 @@
 <mat-sidenav-container class="flex-1">
   <mat-sidenav mode="over" [fixedInViewport]="true">
     <mat-nav-list>
-      <a mat-list-item routerLink="/login">Login</a>
-      <a mat-list-item routerLink="/register">Sign up</a>
+      <ng-container *ngIf="isAuthenticated$ | async; else publicRoutes">
+        <a mat-list-item routerLink="/dashboard">Dashboard</a>
+        <a mat-list-item>Logout</a>
+      </ng-container>
+
+      <ng-template #publicRoutes>
+        <a mat-list-item routerLink="/login">Login</a>
+        <a mat-list-item routerLink="/register">Sign up</a>
+      </ng-template>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

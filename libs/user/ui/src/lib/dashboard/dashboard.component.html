@@ -1,0 +1,5 @@
+<ngbank-page>
+  <ng-container *ngIf="user$ | async as user">
+    <h1>Welcome, {{ user.userId }}!</h1>
+  </ng-container>
+</ngbank-page>

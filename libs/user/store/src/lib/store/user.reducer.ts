@@ -1,9 +1,9 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { User } from '../user';
 import { userActions } from './user.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 
-interface UserState {
+export interface UserState {
   user: User | null;
   error: HttpErrorResponse | null;
 }
@@ -34,4 +34,10 @@ const userReducer = createReducer(
 export const userFeature = createFeature({
   name: 'user',
   reducer: userReducer,
+  extraSelectors: ({ selectUser }) => ({
+    selectUserIsAuthenticated: createSelector(
+      selectUser,
+      (selectedUser: User | null) => !!selectedUser
+    ),
+  }),
 });

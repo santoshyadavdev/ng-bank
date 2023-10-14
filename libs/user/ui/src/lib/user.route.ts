@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { userGuard } from './user.guard';
 
 export const userRoutes: Route[] = [
   {
@@ -17,5 +18,13 @@ export const userRoutes: Route[] = [
       import('./registration/registration.component').then(
         (m) => m.RegistrationComponent
       ),
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./dashboard/dashboard.component').then(
+        (m) => m.DashboardComponent
+      ),
+    canActivate: [userGuard],
   },
 ];

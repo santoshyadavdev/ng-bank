@@ -1,10 +1,12 @@
-import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { userFeature } from '@ngbank/user/store';
 
 @Component({
   selector: 'ngbank-page',
@@ -32,7 +34,17 @@ export class PageComponent implements OnDestroy {
     this._subscription = trigger$.subscribe(() => this.matSideNav?.toggle());
   }
 
+  readonly isAuthenticated$: Observable<boolean>;
+
   private _subscription: Subscription | undefined = undefined;
+
+  private readonly store: Store = inject(Store);
+
+  constructor() {
+    this.isAuthenticated$ = this.store.select(
+      userFeature.selectUserIsAuthenticated
+    );
+  }
 
   ngOnDestroy() {
     this._subscription?.unsubscribe();
