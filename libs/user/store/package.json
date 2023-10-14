@@ -4,6 +4,7 @@
   "peerDependencies": {
     "@angular/common": "^16.2.0",
     "@angular/core": "^16.2.0",
+    "@angular/material": "~16.2.4",
     "@angular/router": "~16.2.0",
     "@ngbank/environment": "~0.0.1",
     "@ngrx/store": "^16.3.0",

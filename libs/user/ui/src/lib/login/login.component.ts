@@ -53,7 +53,7 @@ export class LoginComponent {
         nonNullable: true,
       }),
       password: this.fb.control('', {
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.minLength(8)],
         nonNullable: true,
       }),
     });

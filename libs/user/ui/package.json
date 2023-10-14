@@ -9,7 +9,8 @@
     "@angular/router": "~16.2.0",
     "@ngbank/ui": "~0.0.1",
     "@ngrx/store": "^16.3.0",
-    "@ngbank/user/store": "~0.0.1"
+    "@ngbank/user/store": "~0.0.1",
+    "uuid": "^9.0.1"
   },
   "sideEffects": false
 }

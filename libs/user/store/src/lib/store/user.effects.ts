@@ -1,17 +1,18 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LoginService } from '../login.service';
 import { userActions } from './user.actions';
-import { exhaustMap, map, catchError, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const login$ = createEffect(
-  (actions$ = inject(Actions), loginServiece = inject(LoginService)) => {
+  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
       ofType(userActions.emailLogin),
       exhaustMap(({ userName, password }) =>
-        loginServiece.emailLogin(userName, password).pipe(
+        loginService.emailLogin(userName, password).pipe(
           map((user) => userActions.emailLoginSuccess({ user })),
           catchError((error: HttpErrorResponse) =>
             of(userActions.emailLoginFailure({ error }))
@@ -24,11 +25,11 @@ export const login$ = createEffect(
 );
 
 export const createAccount$ = createEffect(
-  (actions$ = inject(Actions), loginServiece = inject(LoginService)) => {
+  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
       ofType(userActions.createAccount),
       exhaustMap(({ user }) =>
-        loginServiece.createAccount(user).pipe(
+        loginService.createAccount(user).pipe(
           map((user) => userActions.createAccountSuccess({ user })),
           catchError((error: HttpErrorResponse) =>
             of(userActions.createAccountFailure({ error }))
@@ -41,11 +42,11 @@ export const createAccount$ = createEffect(
 );
 
 export const createJWTToken$ = createEffect(
-  (actions$ = inject(Actions), loginServiece = inject(LoginService)) => {
+  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
       ofType(userActions.creatJWTToken),
       exhaustMap(() =>
-        loginServiece.creatJWTToken().pipe(
+        loginService.creatJWTToken().pipe(
           map((token) => userActions.createJWTTokenSuccess({ token })),
           catchError((error: HttpErrorResponse) =>
             of(userActions.createJWTTokenFailure({ error }))
@@ -70,13 +71,25 @@ export const redirectAfterLogin$ = createEffect(
 export const logout$ = createEffect(
   (
     actions$ = inject(Actions),
-    loginServiece = inject(LoginService),
+    loginService = inject(LoginService),
     router = inject(Router)
   ) => {
     return actions$.pipe(
       ofType(userActions.logout),
       exhaustMap(() =>
-        loginServiece.logout().pipe(map(() => router.navigate(['/login'])))
+        loginService.logout().pipe(map(() => router.navigate(['/login'])))
+      )
+    );
+  },
+  { functional: true, dispatch: false }
+);
+
+export const snackBarAfterError$ = createEffect(
+  (actions$ = inject(Actions), snackBar: MatSnackBar = inject(MatSnackBar)) => {
+    return actions$.pipe(
+      ofType(userActions.emailLoginFailure, userActions.createAccountFailure),
+      tap(({ error }) =>
+        snackBar.open(error?.error?.message ?? 'An error has occurred!')
       )
     );
   },
