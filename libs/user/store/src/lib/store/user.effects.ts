@@ -1,4 +1,9 @@
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  ROOT_EFFECTS_INIT,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { LoginService } from '../login.service';
 import { userActions } from './user.actions';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
@@ -13,8 +18,11 @@ export const login$ = createEffect(
       ofType(userActions.emailLogin),
       exhaustMap(({ userName, password }) =>
         loginService.emailLogin(userName, password).pipe(
-          map((user) =>
-            userActions.emailLoginSuccess({ user, forward: '/dashboard' })
+          map((userSession) =>
+            userActions.emailLoginSuccess({
+              userSession,
+              forward: '/dashboard',
+            })
           ),
           catchError((error: HttpErrorResponse) =>
             of(userActions.emailLoginFailure({ error }))
@@ -52,7 +60,7 @@ export const createAccount$ = createEffect(
 export const createJWTToken$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
-      ofType(userActions.creatJWTToken),
+      ofType(userActions.emailLoginSuccess),
       exhaustMap(() =>
         loginService.creatJWTToken().pipe(
           map((token) => userActions.createJWTTokenSuccess({ token })),

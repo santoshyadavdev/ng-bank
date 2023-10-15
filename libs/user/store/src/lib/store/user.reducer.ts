@@ -2,15 +2,20 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { User } from '../user';
 import { userActions } from './user.actions';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserSession } from '../session';
 
 export interface UserState {
   user: User | null;
   error: HttpErrorResponse | null;
+  userSession: UserSession | null;
+  token: string;
 }
 
 const initialState: UserState = {
   user: null,
   error: null,
+  userSession: null,
+  token: '',
 };
 
 const userReducer = createReducer(
@@ -23,7 +28,10 @@ const userReducer = createReducer(
     ...state,
     error,
   })),
-  on(userActions.emailLoginSuccess, (state, { user }) => ({ ...state, user })),
+  on(userActions.emailLoginSuccess, (state, { userSession }) => ({
+    ...state,
+    userSession,
+  })),
   on(userActions.createJWTTokenSuccess, (state, { token }) => ({
     ...state,
     token,
@@ -34,10 +42,10 @@ const userReducer = createReducer(
 export const userFeature = createFeature({
   name: 'user',
   reducer: userReducer,
-  extraSelectors: ({ selectUser }) => ({
+  extraSelectors: ({ selectUserSession }) => ({
     selectUserIsAuthenticated: createSelector(
-      selectUser,
-      (selectedUser: User | null) => !!selectedUser
+      selectUserSession,
+      (userSession: UserSession | null) => !!userSession
     ),
   }),
 });

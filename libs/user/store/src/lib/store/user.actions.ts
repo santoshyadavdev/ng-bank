@@ -1,6 +1,7 @@
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
 import { User } from '../user';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserSession } from '../session';
 
 export const userActions = createActionGroup({
   source: 'User',
@@ -14,7 +15,7 @@ export const userActions = createActionGroup({
     createAccountFailure: props<{ error: HttpErrorResponse }>(),
     emailLogin: props<{ userName: string; password: string }>(),
     emailLoginSuccess: props<{
-      user: User;
+      userSession: UserSession;
       forward: string;
       message?: string;
     }>(),

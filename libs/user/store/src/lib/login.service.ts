@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@ngbank/environment';
 import { User } from './user';
+import { UserSession } from './session';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class LoginService {
   }
 
   emailLogin(userName: string, password: string) {
-    return this.http.post<User>(
+    return this.http.post<UserSession>(
       `${environment.apiEndpoint}/account/sessions/email`,
       {
         email: userName,
@@ -44,7 +45,7 @@ export class LoginService {
   creatJWTToken() {
     return this.http.post<string>(
       `${environment.apiEndpoint}/account/jwt`,
-      {},
+      null,
       {
         headers: this.httpHeader,
       }
