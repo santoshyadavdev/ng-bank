@@ -1,14 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageComponent } from '@ngbank/ui';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  LoginService,
-  User,
-  userActions,
-  userFeature,
-} from '@ngbank/user/store';
+import { User, userFeature } from '@ngbank/user/store';
 
 @Component({
   selector: 'ngbank-dashboard',
@@ -17,7 +12,7 @@ import {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   readonly user$: Observable<User | null>;
 
   private readonly store: Store = inject(Store);
@@ -25,6 +20,4 @@ export class DashboardComponent implements OnInit {
   constructor() {
     this.user$ = this.store.select(userFeature.selectUser);
   }
-
-  ngOnInit(): void {}
 }
