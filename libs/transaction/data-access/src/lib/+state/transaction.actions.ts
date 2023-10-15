@@ -1,0 +1,28 @@
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Transaction } from '../entities/transaction';
+import { NewTransaction } from '../entities/new-transaction';
+
+export const TransactionListActions = createActionGroup({
+  source: 'Transaction List',
+  events: {
+    Opened: emptyProps(),
+    'Create Transaction': props<{
+      transaction: NewTransaction;
+    }>(),
+  },
+});
+
+export const TransactionApiActions = createActionGroup({
+  source: 'Transaction API',
+  events: {
+    'Transactions Loaded Success': props<{
+      transactions: Transaction[];
+    }>(),
+    'Transactions Loaded Failure': props<{ error: HttpErrorResponse }>(),
+    'Transaction Created Success': props<{
+      transaction: Transaction;
+    }>(),
+    'Transaction Created Failure': props<{ error: HttpErrorResponse }>(),
+  },
+});

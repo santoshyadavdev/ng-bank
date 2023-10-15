@@ -1,1 +1,16 @@
-<p>feature-list works!</p>
+<ngbank-page>
+  <h1>Transactions</h1>
+
+  <div class="mb-4">
+    <button (click)="createTransaction()">Create transaction</button>
+  </div>
+
+  <ng-container *ngIf="transactions$ | async as transactions">
+    <pre *ngIf="transactions.length; else noTransactions">{{
+      transactions$ | async
+    }}</pre>
+    <ng-template #noTransactions>
+      You don't have any transactions yet</ng-template
+    >
+  </ng-container>
+</ngbank-page>
