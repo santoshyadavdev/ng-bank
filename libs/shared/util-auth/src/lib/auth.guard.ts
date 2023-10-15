@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { userFeature } from '@ngbank/user/store';
 import { map } from 'rxjs';
 
-export const userGuard: CanActivateFn = () => {
+export const authGuard: CanActivateFn = () => {
   const router: Router = inject(Router);
 
   return inject(Store)

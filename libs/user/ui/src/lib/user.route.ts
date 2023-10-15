@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { userGuard } from './user.guard';
+import { authGuard } from '@ngbank/util-auth';
 
 export const userRoutes: Route[] = [
   {
@@ -25,6 +25,6 @@ export const userRoutes: Route[] = [
       import('./dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ),
-    canActivate: [userGuard],
+    canActivate: [authGuard],
   },
 ];
