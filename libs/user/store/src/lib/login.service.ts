@@ -1,8 +1,13 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
 import { environment } from '@ngbank/environment';
 import { User } from './user';
 import { UserSession } from './session';
+import { Observable } from 'rxjs';
+
+interface Token {
+  jwt: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -29,11 +34,25 @@ export class LoginService {
     );
   }
 
-  creatJWTToken() {
-    return this.http.post<string>(
-      `${environment.apiEndpoint}/account/jwt`,
-      null
+  emailLoginV2(
+    userName: string,
+    password: string
+  ): Observable<HttpResponse<UserSession>> {
+    return this.http.request<UserSession>(
+      'POST',
+      `${environment.apiEndpoint}/account/sessions/email`,
+      {
+        body: {
+          email: userName,
+          password: password,
+        },
+        observe: 'response',
+      }
     );
+  }
+
+  getCurentAccount() {
+    return this.http.get<User>(`${environment.apiEndpoint}/account`);
   }
 
   logout() {

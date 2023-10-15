@@ -12,7 +12,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideState, provideStore } from '@ngrx/store';
 import {
   createAccount$,
-  createJWTToken$,
+  getCurrentUser$,
   login$,
   logout$,
   redirectAfterLogin$,
@@ -41,6 +41,7 @@ const appWriteInterceptor: HttpInterceptorFn = (
 ) => {
   const modifiedReq = req.clone({
     headers: req.headers.set('X-Appwrite-Project', environment.projectId),
+    withCredentials: true,
   });
 
   return next(modifiedReq);
@@ -56,10 +57,10 @@ export const appConfig: ApplicationConfig = {
     provideEffects({
       login$,
       createAccount$,
-      createJWTToken$,
       logout$,
       redirectAfterLogin$,
       snackBarAfterError$,
+      getCurrentUser$,
     }),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states

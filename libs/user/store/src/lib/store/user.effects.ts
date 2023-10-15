@@ -1,9 +1,4 @@
-import {
-  Actions,
-  ROOT_EFFECTS_INIT,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LoginService } from '../login.service';
 import { userActions } from './user.actions';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
@@ -34,6 +29,27 @@ export const login$ = createEffect(
   { functional: true }
 );
 
+export const getCurrentUser$ = createEffect(
+  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
+    return actions$.pipe(
+      ofType(userActions.emailLoginSuccess),
+      exhaustMap(({ userSession }) =>
+        loginService.getCurentAccount().pipe(
+          map((user) =>
+            userActions.getCurrentUserSuccess({
+              user,
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.emailLoginFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
 export const createAccount$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
@@ -49,23 +65,6 @@ export const createAccount$ = createEffect(
           ),
           catchError((error: HttpErrorResponse) =>
             of(userActions.createAccountFailure({ error }))
-          )
-        )
-      )
-    );
-  },
-  { functional: true }
-);
-
-export const createJWTToken$ = createEffect(
-  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
-    return actions$.pipe(
-      ofType(userActions.creatJWTToken),
-      exhaustMap(() =>
-        loginService.creatJWTToken().pipe(
-          map((token) => userActions.createJWTTokenSuccess({ token })),
-          catchError((error: HttpErrorResponse) =>
-            of(userActions.createJWTTokenFailure({ error }))
           )
         )
       )

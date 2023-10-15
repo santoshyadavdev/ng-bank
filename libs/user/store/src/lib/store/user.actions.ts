@@ -24,5 +24,6 @@ export const userActions = createActionGroup({
     createJWTTokenSuccess: props<{ token: string }>(),
     createJWTTokenFailure: props<{ error: HttpErrorResponse }>(),
     logout: emptyProps(),
+    getCurrentUserSuccess: props<{ user: User }>(),
   },
 });
