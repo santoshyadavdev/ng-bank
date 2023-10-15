@@ -8,25 +8,15 @@ import { UserSession } from './session';
   providedIn: 'root',
 })
 export class LoginService {
-  httpHeader = new HttpHeaders().set(
-    'X-Appwrite-Project',
-    environment.projectId
-  );
   http = inject(HttpClient);
 
   createAccount(user: User) {
-    return this.http.post<User>(
-      `${environment.apiEndpoint}/account`,
-      {
-        userId: user.userId,
-        email: user.email,
-        password: user.password,
-        name: user.name,
-      },
-      {
-        headers: this.httpHeader,
-      }
-    );
+    return this.http.post<User>(`${environment.apiEndpoint}/account`, {
+      userId: user.userId,
+      email: user.email,
+      password: user.password,
+      name: user.name,
+    });
   }
 
   emailLogin(userName: string, password: string) {
@@ -35,9 +25,6 @@ export class LoginService {
       {
         email: userName,
         password: password,
-      },
-      {
-        headers: this.httpHeader,
       }
     );
   }
@@ -45,16 +32,11 @@ export class LoginService {
   creatJWTToken() {
     return this.http.post<string>(
       `${environment.apiEndpoint}/account/jwt`,
-      null,
-      {
-        headers: this.httpHeader,
-      }
+      null
     );
   }
 
   logout() {
-    return this.http.delete(`${environment.apiEndpoint}/account/sessions`, {
-      headers: this.httpHeader,
-    });
+    return this.http.delete(`${environment.apiEndpoint}/account/sessions`, {});
   }
 }

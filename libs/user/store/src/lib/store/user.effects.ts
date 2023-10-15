@@ -60,7 +60,7 @@ export const createAccount$ = createEffect(
 export const createJWTToken$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
-      ofType(userActions.emailLoginSuccess),
+      ofType(userActions.creatJWTToken),
       exhaustMap(() =>
         loginService.creatJWTToken().pipe(
           map((token) => userActions.createJWTTokenSuccess({ token })),
