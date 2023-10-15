@@ -1,14 +1,15 @@
 @import '../styles/variables';
+@import '../styles/mixins';
 
 .row {
-  height: calc(100vh - 1rem);
+  @include full-height(1rem);
 
   @media (min-width: map-get($grid-breakpoints, sm) + 1) {
-    height: calc(100vh - 3rem);
+    @include full-height(3rem);
   }
 
   @media (min-width: map-get($grid-breakpoints, lg) + 1) {
-    height: calc(100vh - 4rem);
+    @include full-height(4rem);
   }
 }
 
