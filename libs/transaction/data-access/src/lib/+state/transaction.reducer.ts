@@ -22,6 +22,7 @@ export const transactionFeature = createFeature({
       (state: TransactionState, { transactions }) => ({
         ...state,
         transactions,
+        error: null,
       })
     ),
     on(
@@ -29,6 +30,7 @@ export const transactionFeature = createFeature({
       (state: TransactionState, { transaction }) => ({
         ...state,
         transactions: [...state.transactions, transaction],
+        error: null,
       })
     ),
     on(
