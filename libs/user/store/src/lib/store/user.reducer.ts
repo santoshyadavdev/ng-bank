@@ -32,9 +32,9 @@ const userReducer = createReducer(
     ...state,
     userSession,
   })),
-  on(userActions.createJWTTokenSuccess, (state, { token }) => ({
+  on(userActions.getCurrentUserSuccess, (state, { user }) => ({
     ...state,
-    token,
+    user,
   })),
   on(userActions.logout, (state) => ({ ...state, user: null }))
 );

@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { PageComponent } from '@ngbank/ui';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { User, userActions, userFeature } from '@ngbank/user/store';
+import {
+  LoginService,
+  User,
+  userActions,
+  userFeature,
+} from '@ngbank/user/store';
 
 @Component({
   selector: 'ngbank-dashboard',
@@ -21,7 +26,5 @@ export class DashboardComponent implements OnInit {
     this.user$ = this.store.select(userFeature.selectUser);
   }
 
-  ngOnInit(): void {
-    this.store.dispatch(userActions.creatJWTToken());
-  }
+  ngOnInit(): void {}
 }
