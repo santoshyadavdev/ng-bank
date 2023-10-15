@@ -4,7 +4,6 @@ import { environment } from '@ngbank/environment';
 import { map, Observable } from 'rxjs';
 import { Transaction } from '../entities/transaction';
 import { NewTransaction } from '../entities/new-transaction';
-import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
@@ -19,7 +18,7 @@ export class TransactionService {
 
   createTransaction(transaction: NewTransaction): Observable<Transaction> {
     return this.httpClient.post<Transaction>(`${this.apiPath}`, {
-      documentId: uuidv4(),
+      documentId: 'unique()',
       data: transaction,
       permissions: ['read("any")'], // todo: only owner should have access to read
     });
