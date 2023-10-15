@@ -20,16 +20,35 @@ import {
   userFeature,
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
-import { provideHttpClient } from '@angular/common/http';
+import {
+  HttpHandlerFn,
+  HttpInterceptorFn,
+  HttpRequest,
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
   MatSnackBarModule,
 } from '@angular/material/snack-bar';
+import { environment } from '@ngbank/environment';
+
+const appWriteInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+) => {
+  const modifiedReq = req.clone({
+    headers: req.headers.set('X-Appwrite-Project', environment.projectId),
+  });
+
+  return next(modifiedReq);
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withFetch(), withInterceptors([appWriteInterceptor])),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideAnimations(),
     provideStore(),
