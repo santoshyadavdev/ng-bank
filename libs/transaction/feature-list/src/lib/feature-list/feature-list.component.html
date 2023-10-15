@@ -7,7 +7,7 @@
 
   <ng-container *ngIf="transactions$ | async as transactions">
     <pre *ngIf="transactions.length; else noTransactions">{{
-      transactions$ | async
+      transactions | json
     }}</pre>
     <ng-template #noTransactions>
       You don't have any transactions yet</ng-template
