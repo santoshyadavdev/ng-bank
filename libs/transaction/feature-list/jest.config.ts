@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'feature-list',
+  displayName: 'transaction-feature-list',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../../coverage/libs/transaction/feature-list',

@@ -68,6 +68,9 @@
     },
     "@nx/angular:pipe": {
       "standalone": true
+    },
+    "@nx/workspace:move": {
+      "projectNameAndRootFormat": "as-provided"
     }
   }
 }

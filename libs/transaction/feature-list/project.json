@@ -1,5 +1,5 @@
 {
-  "name": "feature-list",
+  "name": "transaction-feature-list",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/transaction/feature-list/src",
   "prefix": "ngbank",
