@@ -6,7 +6,7 @@ import {
   Transaction,
   transactionFeature,
   TransactionListActions,
-} from '@ngbank/data-access';
+} from '@ngbank/transaction-domain';
 import { Store } from '@ngrx/store';
 import { PageComponent } from '@ngbank/ui';
 

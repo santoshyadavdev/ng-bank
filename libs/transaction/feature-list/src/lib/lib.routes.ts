@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { FeatureListComponent } from './feature-list/feature-list.component';
-import { provideDomain } from '@ngbank/data-access';
+import { provideDomain } from '@ngbank/transaction-domain';
 import { authGuard } from '@ngbank/util-auth';
 
 export const featureListRoutes: Route[] = [

@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngbank/data-access": ["libs/transaction/data-access/src/index.ts"],
       "@ngbank/environment": ["libs/environment/src/index.ts"],
+      "@ngbank/transaction-domain": ["libs/transaction/domain/src/index.ts"],
       "@ngbank/transaction-feature-list": [
         "libs/transaction/feature-list/src/index.ts"
       ],
