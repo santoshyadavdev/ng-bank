@@ -16,11 +16,18 @@ export class TransactionService {
       .pipe(map((res) => res.documents));
   }
 
-  createTransaction(transaction: NewTransaction): Observable<Transaction> {
+  createTransaction(
+    transaction: NewTransaction,
+    userId: string
+  ): Observable<Transaction> {
+    if (!userId.length) {
+      throw new Error('Not authenticated!');
+    }
+
     return this.httpClient.post<Transaction>(`${this.apiPath}`, {
       documentId: 'unique()',
       data: transaction,
-      permissions: ['read("any")'], // todo: only owner should have access to read
+      permissions: [`read("user:${userId}")`],
     });
   }
 }

@@ -1,17 +1,20 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, exhaustMap, map, of } from 'rxjs';
 import { TransactionService } from '../infrastructure/transaction.service';
 import {
   TransactionApiActions,
   TransactionListActions,
 } from './transaction.actions';
+import { Store } from '@ngrx/store';
+import { userFeature } from '@ngbank/user/store';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionEffects {
   private readonly transactionService: TransactionService =
     inject(TransactionService);
   private readonly actions$: Actions = inject(Actions);
+  private readonly store: Store = inject(Store);
 
   loadTransactions$ = createEffect(() => {
     return this.actions$.pipe(
@@ -32,15 +35,18 @@ export class TransactionEffects {
   createTransaction$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TransactionListActions.createTransaction),
-      concatMap(({ transaction }) =>
-        this.transactionService.createTransaction(transaction).pipe(
-          map((transaction) =>
-            TransactionApiActions.transactionCreatedSuccess({ transaction })
-          ),
-          catchError((error) =>
-            of(TransactionApiActions.transactionCreatedFailure({ error }))
+      concatLatestFrom(() => this.store.select(userFeature.selectUser)),
+      concatMap(([{ transaction }, user]) =>
+        this.transactionService
+          .createTransaction(transaction, user?.$id ?? '')
+          .pipe(
+            map((transaction) =>
+              TransactionApiActions.transactionCreatedSuccess({ transaction })
+            ),
+            catchError((error) =>
+              of(TransactionApiActions.transactionCreatedFailure({ error }))
+            )
           )
-        )
       )
     );
   });
