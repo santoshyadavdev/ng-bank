@@ -1,22 +1,23 @@
 import {
+  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
   isDevMode,
 } from '@angular/core';
-import {
-  provideRouter,
-  withEnabledBlockingInitialNavigation,
-} from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideState, provideStore } from '@ngrx/store';
+import { provideState, provideStore, Store } from '@ngrx/store';
 import {
   createAccount$,
   getCurrentUser$,
   login$,
+  LoginService,
   logout$,
   redirectAfterLogin$,
   snackBarAfterError$,
+  User,
+  userActions,
   userFeature,
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
@@ -34,6 +35,7 @@ import {
   MatSnackBarModule,
 } from '@angular/material/snack-bar';
 import { environment } from '@ngbank/environment';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 const appWriteInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -47,10 +49,20 @@ const appWriteInterceptor: HttpInterceptorFn = (
   return next(modifiedReq);
 };
 
+export function initializeApp(loginService: LoginService, store: Store) {
+  return (): Observable<User | null> =>
+    loginService.getCurentAccount().pipe(
+      tap((user) =>
+        store.dispatch(userActions.getCurrentUserSuccess({ user }))
+      ),
+      catchError(() => of(null))
+    );
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch(), withInterceptors([appWriteInterceptor])),
-    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
+    provideRouter(appRoutes),
     provideAnimations(),
     provideStore(),
     provideState(userFeature),
@@ -76,6 +88,12 @@ export const appConfig: ApplicationConfig = {
         verticalPosition: 'top',
         horizontalPosition: 'end',
       },
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      multi: true,
+      deps: [LoginService, Store],
     },
   ],
 };

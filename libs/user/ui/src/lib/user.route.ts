@@ -11,6 +11,7 @@ export const userRoutes: Route[] = [
     path: 'login',
     loadComponent: () =>
       import('./login/login.component').then((m) => m.LoginComponent),
+    canActivate: [authGuard],
   },
   {
     path: 'register',
