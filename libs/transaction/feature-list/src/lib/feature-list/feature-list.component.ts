@@ -9,13 +9,14 @@ import {
 } from '@ngbank/transaction-domain';
 import { Store } from '@ngrx/store';
 import { PageComponent } from '@ngbank/ui';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'ngbank-feature-list',
   standalone: true,
-  imports: [CommonModule, PageComponent],
+  imports: [CommonModule, PageComponent, MatListModule],
   templateUrl: './feature-list.component.html',
-  styleUrls: ['./feature-list.component.css'],
+  styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
   readonly transactions$: Observable<Transaction[]>;
@@ -35,6 +36,12 @@ export class FeatureListComponent implements OnInit {
   createTransaction() {
     const transaction: NewTransaction = {
       amount: 12.01,
+      bookingDate: new Date(),
+      currencyCode: 'EUR',
+      originIban: 'DE75512108001245126199',
+      e2eReference: 'Thank you!',
+      counterPartyIban: 'DE75512108001245126198',
+      counterPartyName: 'Max Mustermann',
     };
 
     this.store.dispatch(
