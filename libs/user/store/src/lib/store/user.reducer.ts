@@ -36,7 +36,11 @@ const userReducer = createReducer(
     ...state,
     user,
   })),
-  on(userActions.logout, (state) => ({ ...state, user: null }))
+  on(userActions.logout, (state) => ({
+    ...state,
+    user: null,
+    userSession: null,
+  }))
 );
 
 export const userFeature = createFeature({
