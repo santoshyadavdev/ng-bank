@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { userFeature } from '@ngbank/user/store';
+import { userActions, userFeature } from '@ngbank/user/store';
 
 @Component({
   selector: 'ngbank-page',
@@ -48,5 +48,9 @@ export class PageComponent implements OnDestroy {
 
   ngOnDestroy() {
     this._subscription?.unsubscribe();
+  }
+
+  logout() {
+    this.store.dispatch(userActions.logout());
   }
 }

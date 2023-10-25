@@ -4,7 +4,7 @@
       <ng-container *ngIf="isAuthenticated$ | async; else publicRoutes">
         <a mat-list-item routerLink="/dashboard">Dashboard</a>
         <a mat-list-item routerLink="/transactions">Transactions</a>
-        <a mat-list-item>Logout</a>
+        <a mat-list-item (click)="logout()">Logout</a>
       </ng-container>
 
       <ng-template #publicRoutes>

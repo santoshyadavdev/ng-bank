@@ -13,7 +13,7 @@ import { LoginForm } from '../_models/login-form.model';
 import { MatIconModule } from '@angular/material/icon';
 import { FrontPageComponent } from '@ngbank/ui';
 import { Store } from '@ngrx/store';
-import { userActions } from '@ngbank/user/store';
+import { LoginService, userActions } from '@ngbank/user/store';
 
 @Component({
   selector: 'ngbank-login',
@@ -45,6 +45,7 @@ export class LoginComponent {
 
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly store: Store = inject(Store);
+  loginservice = inject(LoginService);
 
   constructor() {
     this.form = this.fb.group({
@@ -67,5 +68,11 @@ export class LoginComponent {
           password: this.form.value.password,
         })
       );
+  }
+
+  auth0Login() {
+    this.loginservice
+      .creatAuth0Session()
+      .subscribe((data) => console.log(data));
   }
 }

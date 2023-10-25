@@ -1,19 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '@ngbank/environment';
 import { User } from './user';
 import { UserSession } from './session';
-import { Observable } from 'rxjs';
-
-interface Token {
-  jwt: string;
-}
+import { Token } from './token';
+import { PlatformLocation } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   http = inject(HttpClient);
+  location = inject(PlatformLocation);
 
   createAccount(user: User) {
     return this.http.post<User>(`${environment.apiEndpoint}/account`, {
@@ -34,25 +32,33 @@ export class LoginService {
     );
   }
 
-  emailLoginV2(
-    userName: string,
-    password: string
-  ): Observable<HttpResponse<UserSession>> {
-    return this.http.request<UserSession>(
-      'POST',
-      `${environment.apiEndpoint}/account/sessions/email`,
+  getCurentAccount() {
+    return this.http.get<User>(`${environment.apiEndpoint}/account`);
+  }
+
+  createEmailVerification() {
+    return this.http.post<Token>(
+      `${environment.apiEndpoint}/account/verification`,
       {
-        body: {
-          email: userName,
-          password: password,
-        },
-        observe: 'response',
+        url: `${this.location.getBaseHrefFromDOM()}`,
       }
     );
   }
 
-  getCurentAccount() {
-    return this.http.get<User>(`${environment.apiEndpoint}/account`);
+  verifyEmail(userid: string, token: string) {
+    return this.http.put<Token>(
+      `${environment.apiEndpoint}/account/verification`,
+      {
+        userId: userid,
+        secret: token,
+      }
+    );
+  }
+
+  creatAuth0Session() {
+    return this.http.get(
+      `${environment.apiEndpoint}/account/sessions/oauth2/auth0`
+    );
   }
 
   logout() {

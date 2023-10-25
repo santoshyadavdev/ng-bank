@@ -36,16 +36,22 @@ const userReducer = createReducer(
     ...state,
     user,
   })),
-  on(userActions.logout, (state) => ({ ...state, user: null }))
+  on(userActions.logout, (state) => ({
+    ...state,
+    user: null,
+    userSession: null,
+  }))
 );
 
 export const userFeature = createFeature({
   name: 'user',
   reducer: userReducer,
-  extraSelectors: ({ selectUserSession }) => ({
+  extraSelectors: ({ selectUserSession, selectUser }) => ({
     selectUserIsAuthenticated: createSelector(
       selectUserSession,
-      (userSession: UserSession | null) => !!userSession
+      selectUser,
+      (userSession: UserSession | null, user: User | null) =>
+        !!userSession || !!user
     ),
   }),
 });
