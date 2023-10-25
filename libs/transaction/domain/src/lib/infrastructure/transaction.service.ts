@@ -18,10 +18,10 @@ export class TransactionService {
 
   createTransaction(
     transaction: NewTransaction,
-    userId: string
+    userId: string | null
   ): Observable<Transaction> {
-    if (!userId.length) {
-      throw new Error('Not authenticated!');
+    if (!userId) {
+      throw new Error('Unauthorized!');
     }
 
     return this.httpClient.post<Transaction>(`${this.apiPath}`, {

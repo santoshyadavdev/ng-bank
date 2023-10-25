@@ -38,7 +38,7 @@ export class TransactionEffects {
       concatLatestFrom(() => this.store.select(userFeature.selectUser)),
       concatMap(([{ transaction }, user]) =>
         this.transactionService
-          .createTransaction(transaction, user?.$id ?? '')
+          .createTransaction(transaction, user?.$id ?? null)
           .pipe(
             map((transaction) =>
               TransactionApiActions.transactionCreatedSuccess({ transaction })
