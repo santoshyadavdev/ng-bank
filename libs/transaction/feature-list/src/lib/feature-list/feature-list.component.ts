@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import {
   NewTransaction,
   Transaction,
@@ -19,14 +19,34 @@ import { MatListModule } from '@angular/material/list';
   styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
-  readonly transactions$: Observable<Transaction[]>;
+  readonly transactionsGrouped$: Observable<Map<string, Transaction[]> | null>;
 
   private readonly store: Store = inject(Store);
 
   constructor() {
-    this.transactions$ = this.store.select(
-      transactionFeature.selectTransactions
-    );
+    this.transactionsGrouped$ = this.store
+      .select(transactionFeature.selectTransactions)
+      .pipe(
+        map((transactions) => {
+          if (!transactions.length) {
+            return null;
+          }
+
+          const map = new Map<string, Transaction[]>();
+
+          transactions.map((i) =>
+            map.set(
+              i.bookingDate.toDateString(),
+              transactions.filter(
+                (t) =>
+                  t.bookingDate.toDateString() === i.bookingDate.toDateString()
+              )
+            )
+          );
+
+          return map;
+        })
+      );
   }
 
   ngOnInit() {

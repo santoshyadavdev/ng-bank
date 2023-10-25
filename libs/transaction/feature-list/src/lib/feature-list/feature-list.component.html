@@ -5,30 +5,38 @@
     <button (click)="createTransaction()">Create transaction</button>
   </div>
 
-  <mat-list>
-    <ng-container
-      *ngIf="transactions$ | async as transactions; else noTransactions"
-    >
-      <mat-list-item *ngFor="let transaction of transactions">
+  <mat-list
+    *ngIf="
+      transactionsGrouped$ | async as transactionsGrouped;
+      else noTransactions
+    "
+  >
+    <ng-container *ngFor="let bookingDate of transactionsGrouped.keys()">
+      <div mat-subheader>
+        {{ bookingDate | date }}
+      </div>
+
+      <mat-list-item
+        *ngFor="let transaction of transactionsGrouped.get(bookingDate)"
+      >
         <span matListItemTitle>
           {{
             transaction.counterPartyName ? transaction.counterPartyName : '-'
           }}
-          <span [ngClass]="{ 'text-success': transaction.amount > 0 }">{{
-            transaction.amount | currency : transaction.currencyCode
-          }}</span>
         </span>
         <span matListItemLine>
           {{ transaction.e2eReference ? transaction.e2eReference : '-' }}
-          <span>{{ transaction.bookingDate | date }}</span>
         </span>
+        <span
+          matListItemMeta
+          [ngClass]="{ 'text-success': transaction.amount > 0 }"
+          >{{ transaction.amount | currency : transaction.currencyCode }}</span
+        >
       </mat-list-item>
     </ng-container>
   </mat-list>
 
   <ng-template #noTransactions>
-    <mat-list-item
-      >You don't have any transactions yet</mat-list-item
-    ></ng-template
+    <p>You don't have any transactions yet</p></ng-template
   >
 </ngbank-page>

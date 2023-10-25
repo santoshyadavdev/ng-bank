@@ -12,8 +12,17 @@ export class TransactionService {
 
   getTransactions(): Observable<Transaction[]> {
     return this.httpClient
-      .get<{ total: number; documents: Transaction[] }>(`${this.apiPath}`)
-      .pipe(map((res) => res.documents));
+      .get<{ total: number; documents: Transaction[] }>(
+        `${this.apiPath}?queries[]=orderDesc("bookingDate")`
+      )
+      .pipe(
+        map((res) =>
+          res.documents.map((document) => ({
+            ...document,
+            bookingDate: new Date(document.bookingDate),
+          }))
+        )
+      );
   }
 
   createTransaction(
@@ -24,10 +33,17 @@ export class TransactionService {
       throw new Error('Unauthorized!');
     }
 
-    return this.httpClient.post<Transaction>(`${this.apiPath}`, {
-      documentId: 'unique()',
-      data: transaction,
-      permissions: [`read("user:${userId}")`],
-    });
+    return this.httpClient
+      .post<Transaction>(`${this.apiPath}`, {
+        documentId: 'unique()',
+        data: transaction,
+        permissions: [`read("user:${userId}")`],
+      })
+      .pipe(
+        map((transaction) => ({
+          ...transaction,
+          bookingDate: new Date(transaction.bookingDate),
+        }))
+      );
   }
 }
