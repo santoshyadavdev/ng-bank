@@ -7,18 +7,17 @@
 
   <mat-list
     *ngIf="
-      transactionsGrouped$ | async as transactionsGrouped;
+      transactionsGroupedByBookingDate$
+        | async as transactionsGroupedByBookingDate;
       else noTransactions
     "
   >
-    <ng-container *ngFor="let bookingDate of transactionsGrouped.keys()">
+    <ng-container *ngFor="let group of transactionsGroupedByBookingDate">
       <div mat-subheader>
-        {{ bookingDate | date }}
+        {{ group.bookingDate | date }}
       </div>
 
-      <mat-list-item
-        *ngFor="let transaction of transactionsGrouped.get(bookingDate)"
-      >
+      <mat-list-item *ngFor="let transaction of group.transactions">
         <span matListItemTitle>
           {{
             transaction.counterPartyName ? transaction.counterPartyName : '-'

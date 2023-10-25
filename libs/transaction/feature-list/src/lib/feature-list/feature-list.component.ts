@@ -19,12 +19,15 @@ import { MatListModule } from '@angular/material/list';
   styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
-  readonly transactionsGrouped$: Observable<Map<string, Transaction[]> | null>;
+  readonly transactionsGroupedByBookingDate$: Observable<Array<{
+    bookingDate: string;
+    transactions: Transaction[];
+  }> | null>;
 
   private readonly store: Store = inject(Store);
 
   constructor() {
-    this.transactionsGrouped$ = this.store
+    this.transactionsGroupedByBookingDate$ = this.store
       .select(transactionFeature.selectTransactions)
       .pipe(
         map((transactions) => {
@@ -44,7 +47,10 @@ export class FeatureListComponent implements OnInit {
             )
           );
 
-          return map;
+          return Array.from(map.keys()).map((bookingDate) => ({
+            bookingDate,
+            transactions: map.get(bookingDate) ?? [],
+          }));
         })
       );
   }
