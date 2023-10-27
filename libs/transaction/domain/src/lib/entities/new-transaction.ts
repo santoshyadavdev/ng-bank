@@ -1,3 +1,5 @@
+import { Account } from './account';
+
 export interface NewTransaction {
   amount: number;
   bookingDate: Date;
@@ -6,4 +8,5 @@ export interface NewTransaction {
   e2eReference?: string;
   counterPartyIban?: string;
   counterPartyName?: string;
+  account: string | Account;
 }

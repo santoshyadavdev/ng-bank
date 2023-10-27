@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { map, Observable } from 'rxjs';
 import {
+  Account,
   NewTransaction,
   Transaction,
   transactionFeature,
@@ -10,23 +11,27 @@ import {
 import { Store } from '@ngrx/store';
 import { PageComponent } from '@ngbank/ui';
 import { MatListModule } from '@angular/material/list';
+import { SelectAccountComponent } from '@ngbank/transaction-ui-common';
 
 @Component({
   selector: 'ngbank-feature-list',
   standalone: true,
-  imports: [CommonModule, PageComponent, MatListModule],
+  imports: [CommonModule, PageComponent, MatListModule, SelectAccountComponent],
   templateUrl: './feature-list.component.html',
   styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
+  readonly accounts$: Observable<Account[]>;
   readonly transactionsGroupedByBookingDate$: Observable<Array<{
     bookingDate: string;
     transactions: Transaction[];
   }> | null>;
+  readonly selectedAccountId$: Observable<string | null>;
 
   private readonly store: Store = inject(Store);
 
   constructor() {
+    this.accounts$ = this.store.select(transactionFeature.selectAccounts);
     this.transactionsGroupedByBookingDate$ = this.store
       .select(transactionFeature.selectTransactions)
       .pipe(
@@ -53,13 +58,16 @@ export class FeatureListComponent implements OnInit {
           }));
         })
       );
+    this.selectedAccountId$ = this.store.select(
+      transactionFeature.selectSelectedAccountId
+    );
   }
 
   ngOnInit() {
     this.store.dispatch(TransactionListActions.opened());
   }
 
-  createTransaction() {
+  createTransaction(selectedAccountId: string) {
     const transaction: NewTransaction = {
       amount: 12.01,
       bookingDate: new Date(),
@@ -68,10 +76,15 @@ export class FeatureListComponent implements OnInit {
       e2eReference: 'Thank you!',
       counterPartyIban: 'DE75512108001245126198',
       counterPartyName: 'Max Mustermann',
+      account: selectedAccountId,
     };
 
     this.store.dispatch(
       TransactionListActions.createTransaction({ transaction })
     );
+  }
+
+  selectAccount(accountId: string) {
+    this.store.dispatch(TransactionListActions.selectAccount({ accountId }));
   }
 }

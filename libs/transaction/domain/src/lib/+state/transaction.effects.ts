@@ -3,14 +3,17 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, exhaustMap, map, of } from 'rxjs';
 import { TransactionService } from '../infrastructure/transaction.service';
 import {
+  AccountApiActions,
   TransactionApiActions,
   TransactionListActions,
 } from './transaction.actions';
 import { Store } from '@ngrx/store';
 import { userFeature } from '@ngbank/user/store';
+import { AccountService } from '../infrastructure/account.service';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionEffects {
+  private readonly accountService: AccountService = inject(AccountService);
   private readonly transactionService: TransactionService =
     inject(TransactionService);
   private readonly actions$: Actions = inject(Actions);
@@ -18,9 +21,9 @@ export class TransactionEffects {
 
   loadTransactions$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(TransactionListActions.opened),
-      exhaustMap(() =>
-        this.transactionService.getTransactions().pipe(
+      ofType(TransactionListActions.selectAccount),
+      exhaustMap(({ accountId }) =>
+        this.transactionService.getTransactionsByAccount(accountId).pipe(
           map((transactions) =>
             TransactionApiActions.transactionsLoadedSuccess({ transactions })
           ),
@@ -47,6 +50,22 @@ export class TransactionEffects {
               of(TransactionApiActions.transactionCreatedFailure({ error }))
             )
           )
+      )
+    );
+  });
+
+  loadAccounts$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TransactionListActions.opened),
+      exhaustMap(() =>
+        this.accountService.getAccounts().pipe(
+          map((accounts) =>
+            AccountApiActions.accountsLoadedSuccess({ accounts })
+          ),
+          catchError((error) =>
+            of(AccountApiActions.accountsLoadedFailure({ error }))
+          )
+        )
       )
     );
   });

@@ -1,5 +1,6 @@
 export * from './lib/entities/new-transaction';
 export * from './lib/entities/transaction';
+export * from './lib/entities/account';
 
 export * from './lib/infrastructure/transaction.service';
 

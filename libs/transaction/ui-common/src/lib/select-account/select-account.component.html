@@ -1,0 +1,10 @@
+<form [formGroup]="form" *ngIf="accounts">
+  <mat-form-field>
+    <mat-label>Select account</mat-label>
+    <mat-select formControlName="account" name="account">
+      <mat-option *ngFor="let account of accounts" [value]="account.$id">
+        {{ account.iban }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

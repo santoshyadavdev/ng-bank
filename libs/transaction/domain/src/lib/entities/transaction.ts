@@ -1,10 +1,5 @@
 import { NewTransaction } from './new-transaction';
+import { BaseDocument } from '@ngbank/util-entities';
+import { Account } from './account';
 
-export interface Transaction extends NewTransaction {
-  $id: string;
-  $createdAt: string;
-  $updatedAt: string;
-  $permissions: string[];
-  $databaseId: string;
-  $collectionId: string;
-}
+export interface Transaction extends BaseDocument, NewTransaction {}

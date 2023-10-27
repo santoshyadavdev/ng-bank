@@ -10,10 +10,10 @@ export class TransactionService {
   private readonly httpClient: HttpClient = inject(HttpClient);
   private readonly apiPath = `${environment.apiEndpoint}/databases/${environment.databases.banking.databaseId}/collections/${environment.databases.banking.collections.transactions.collectionId}/documents`;
 
-  getTransactions(): Observable<Transaction[]> {
+  getTransactionsByAccount(accountId: string): Observable<Transaction[]> {
     return this.httpClient
       .get<{ total: number; documents: Transaction[] }>(
-        `${this.apiPath}?queries[]=orderDesc("bookingDate")`
+        `${this.apiPath}?queries[]=orderDesc("bookingDate")&queries[]=equal("account", ${accountId})`
       )
       .pipe(
         map((res) =>
