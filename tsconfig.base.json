@@ -15,10 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngbank/account-domain": ["libs/account/domain/src/index.ts"],
-      "@ngbank/account-feature-select": [
-        "libs/account/feature-select/src/index.ts"
-      ],
       "@ngbank/environment": ["libs/environment/src/index.ts"],
       "@ngbank/transaction-domain": ["libs/transaction/domain/src/index.ts"],
       "@ngbank/transaction-feature-list": [
