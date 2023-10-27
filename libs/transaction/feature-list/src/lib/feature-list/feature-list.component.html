@@ -1,16 +1,15 @@
 <ngbank-page>
   <h1>Transactions</h1>
 
-  <div class="mb-4" *ngIf="selectedAccountId$ | async as selectedAccountId">
-    <button (click)="createTransaction(selectedAccountId)">
-      Create transaction
-    </button>
-  </div>
-
   <ngbank-select-account
     [accounts]="accounts$ | async"
     (selectionChange)="selectAccount($event)"
   ></ngbank-select-account>
+
+  <ngbank-new-transaction
+    [selectedAccountId]="selectedAccountId$ | async"
+    (createTransaction)="createTransaction($event)"
+  ></ngbank-new-transaction>
 
   <mat-list
     *ngIf="

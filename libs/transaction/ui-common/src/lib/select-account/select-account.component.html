@@ -1,5 +1,5 @@
 <form [formGroup]="form" *ngIf="accounts">
-  <mat-form-field>
+  <mat-form-field class="w-100">
     <mat-label>Select account</mat-label>
     <mat-select formControlName="account" name="account">
       <mat-option *ngFor="let account of accounts" [value]="account.$id">

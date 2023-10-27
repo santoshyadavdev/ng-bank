@@ -11,12 +11,21 @@ import {
 import { Store } from '@ngrx/store';
 import { PageComponent } from '@ngbank/ui';
 import { MatListModule } from '@angular/material/list';
-import { SelectAccountComponent } from '@ngbank/transaction-ui-common';
+import {
+  NewTransactionComponent,
+  SelectAccountComponent,
+} from '@ngbank/transaction-ui-common';
 
 @Component({
   selector: 'ngbank-feature-list',
   standalone: true,
-  imports: [CommonModule, PageComponent, MatListModule, SelectAccountComponent],
+  imports: [
+    CommonModule,
+    PageComponent,
+    MatListModule,
+    SelectAccountComponent,
+    NewTransactionComponent,
+  ],
   templateUrl: './feature-list.component.html',
   styleUrls: ['./feature-list.component.scss'],
 })
@@ -67,18 +76,7 @@ export class FeatureListComponent implements OnInit {
     this.store.dispatch(TransactionListActions.opened());
   }
 
-  createTransaction(selectedAccountId: string) {
-    const transaction: NewTransaction = {
-      amount: 12.01,
-      bookingDate: new Date(),
-      currencyCode: 'EUR',
-      originIban: 'DE75512108001245126199',
-      e2eReference: 'Thank you!',
-      counterPartyIban: 'DE75512108001245126198',
-      counterPartyName: 'Max Mustermann',
-      account: selectedAccountId,
-    };
-
+  createTransaction(transaction: NewTransaction) {
     this.store.dispatch(
       TransactionListActions.createTransaction({ transaction })
     );

@@ -1,0 +1,64 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="mb-4" #f="ngForm">
+  <mat-form-field appearance="outline" class="w-100 mb-2">
+    <mat-label>counterPartyName</mat-label>
+    <input
+      matInput
+      placeholder="Enter counterPartyName"
+      type="text"
+      formControlName="counterPartyName"
+    />
+    <mat-error *ngIf="counterPartyName?.errors?.['required']"
+      >counterPartyName is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 mb-2">
+    <mat-label>counterPartyIban</mat-label>
+    <input
+      matInput
+      placeholder="Enter counterPartyIban"
+      type="text"
+      formControlName="counterPartyIban"
+    />
+    <mat-error *ngIf="counterPartyIban?.errors?.['required']"
+      >counterPartyIban is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 mb-2">
+    <mat-label>Amount</mat-label>
+    <input
+      matInput
+      placeholder="Enter amount"
+      type="number"
+      step="0.01"
+      formControlName="amount"
+    />
+    <mat-icon matSuffix>euro</mat-icon>
+    <mat-error *ngIf="amount?.errors?.['required']"
+      >Amount is required</mat-error
+    >
+    <mat-error *ngIf="amount?.errors?.['min']"
+      >Should be at least 0.01 €</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 mb-2">
+    <mat-label>e2eReference</mat-label>
+    <input
+      matInput
+      placeholder="Enter e2eReference"
+      type="text"
+      formControlName="e2eReference"
+    />
+    <mat-error *ngIf="e2eReference?.errors?.['maxlength']"
+      >Maximum
+      {{ e2eReference?.errors?.['maxlength']?.requiredLength }} characters
+      allowed</mat-error
+    >
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" [disabled]="!form.valid">
+    Create transaction
+  </button>
+</form>
