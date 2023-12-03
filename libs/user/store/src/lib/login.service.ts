@@ -15,7 +15,7 @@ export class LoginService {
 
   createAccount(user: User) {
     return this.http.post<User>(`${environment.apiEndpoint}/account`, {
-      userId: user.userId,
+      userId: 'unique()',
       email: user.email,
       password: user.password,
       name: user.name,
