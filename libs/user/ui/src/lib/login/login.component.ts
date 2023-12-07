@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +19,6 @@ import { LoginService, userActions } from '@ngbank/user/store';
   selector: 'ngbank-login',
   standalone: true,
   imports: [
-    CommonModule,
     MatInputModule,
     RouterLink,
     MatButtonModule,
