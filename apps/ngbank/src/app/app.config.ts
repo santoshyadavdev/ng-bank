@@ -78,7 +78,7 @@ export const appConfig: ApplicationConfig = {
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
-      connectOutsideZone: true, // If set to true, the connection is established outside the Angular zone for better performance
+      connectInZone: true, // If set to true, the connection is established outside the Angular zone for better performance
     }),
     importProvidersFrom(MatSnackBarModule),
     {
