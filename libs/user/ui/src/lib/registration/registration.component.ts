@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { User, userActions } from '@ngbank/user/store';
 import { Store } from '@ngrx/store';
 import { FrontPageComponent, PageComponent } from '@ngbank/ui';
@@ -20,7 +20,6 @@ import { RouterLink } from '@angular/router';
   selector: 'ngbank-registration',
   standalone: true,
   imports: [
-    CommonModule,
     PageComponent,
     FrontPageComponent,
     MatButtonModule,

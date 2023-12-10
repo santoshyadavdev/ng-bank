@@ -1,6 +1,5 @@
 <ngbank-front-page>
   <h1 class="mat-headline-1 mb-5">Sign up!</h1>
-
   <form class="mb-4" [formGroup]="form" (ngSubmit)="register()">
     <mat-form-field appearance="outline" class="w-100 mb-2">
       <mat-label>Name</mat-label>
@@ -11,12 +10,13 @@
         formControlName="name"
         maxlength="128"
       />
-      <mat-error *ngIf="name?.errors?.['required']">Name is required</mat-error>
-      <mat-error *ngIf="name?.errors?.['maxlength']"
-        >Name must be at maximum 128 characters long</mat-error
-      >
+      @if (name?.errors?.['required']) {
+        <mat-error>Name is required</mat-error>
+      }
+      @if (name?.errors?.['maxlength']) {
+        <mat-error>Name must be at maximum 128 characters long</mat-error>
+      }
     </mat-form-field>
-
     <mat-form-field appearance="outline" class="w-100 mb-2">
       <mat-label>Email</mat-label>
       <input
@@ -25,12 +25,13 @@
         type="email"
         formControlName="email"
       />
-      <mat-error *ngIf="email?.errors?.['required']"
-        >Email is required</mat-error
-      >
-      <mat-error *ngIf="email?.errors?.['email']">Not a valid email</mat-error>
+      @if (email?.errors?.['required']) {
+        <mat-error>Email is required</mat-error>
+      }
+      @if (email?.errors?.['email']) {
+        <mat-error>Not a valid email</mat-error>
+      }
     </mat-form-field>
-
     <mat-form-field appearance="outline" class="w-100 mb-2">
       <mat-label>Password</mat-label>
       <input
@@ -52,14 +53,13 @@
           hidePassword ? 'visibility' : 'visibility_off'
         }}</mat-icon>
       </button>
-      <mat-error *ngIf="password?.errors?.['required']"
-        >Password is required</mat-error
-      >
-      <mat-error *ngIf="password?.errors?.['minlength']"
-        >Password must be at least 8 characters long</mat-error
-      >
+      @if (password?.errors?.['required']) {
+        <mat-error>Password is required</mat-error>
+      }
+      @if (password?.errors?.['minlength']) {
+        <mat-error>Password must be at least 8 characters long</mat-error>
+      }
     </mat-form-field>
-
     <button
       type="submit"
       mat-flat-button
@@ -70,7 +70,6 @@
       Register
     </button>
   </form>
-
   <p class="mb-1 d-flex align-items-center justify-content-center">
     Already have an account?<a
       [routerLink]="['/login']"

@@ -33,7 +33,7 @@ export const getCurrentUser$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
       ofType(userActions.emailLoginSuccess),
-      exhaustMap(({ userSession }) =>
+      exhaustMap(() =>
         loginService.getCurentAccount().pipe(
           map((user) =>
             userActions.getCurrentUserSuccess({

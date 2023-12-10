@@ -1,15 +1,13 @@
 <mat-sidenav-container class="flex-1">
   <mat-sidenav mode="over" [fixedInViewport]="true">
     <mat-nav-list>
-      <ng-container *ngIf="isAuthenticated$ | async; else publicRoutes">
+      @if (isAuthenticated$ | async) {
         <a mat-list-item routerLink="/dashboard">Dashboard</a>
         <a mat-list-item (click)="logout()">Logout</a>
-      </ng-container>
-
-      <ng-template #publicRoutes>
+      } @else {
         <a mat-list-item routerLink="/login">Login</a>
         <a mat-list-item routerLink="/register">Sign up</a>
-      </ng-template>
+      }
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,11 +18,12 @@
             class="offset-xl-1"
             [ngClass]="fullscreenRight ? 'col-xl-11' : 'col-xl-10'"
           >
-            <ngbank-toolbar
-              *ngIf="!hideToolbar"
-              (menuButtonClick)="matSideNav?.toggle()"
-              class="d-block mb-4"
-            ></ngbank-toolbar>
+            @if (!hideToolbar) {
+              <ngbank-toolbar
+                (menuButtonClick)="matSideNav?.toggle()"
+                class="d-block mb-4"
+              ></ngbank-toolbar>
+            }
             <ng-content></ng-content>
           </div>
         </div>
