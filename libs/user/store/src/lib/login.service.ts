@@ -4,14 +4,14 @@ import { environment } from '@ngbank/environment';
 import { User } from './user';
 import { UserSession } from './session';
 import { Token } from './token';
-import { PlatformLocation } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   http = inject(HttpClient);
-  location = inject(PlatformLocation);
+  location = inject(Location);
 
   createAccount(user: User) {
     return this.http.post<User>(`${environment.apiEndpoint}/account`, {
@@ -40,7 +40,7 @@ export class LoginService {
     return this.http.post<Token>(
       `${environment.apiEndpoint}/account/verification`,
       {
-        url: `${this.location.getBaseHrefFromDOM()}`,
+        url: `${this.location.path()}`,
       }
     );
   }

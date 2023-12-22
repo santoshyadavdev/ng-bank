@@ -119,3 +119,20 @@ export const snackBarAfterError$ = createEffect(
   },
   { functional: true, dispatch: false }
 );
+
+export const sendVerifyEmail$ = createEffect(
+  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
+    return actions$.pipe(
+      ofType(userActions.createAccount),
+      exhaustMap(() =>
+        loginService.createEmailVerification().pipe(
+          map((token) => console.log(token)),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.createAccountFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true, dispatch: false }
+);
