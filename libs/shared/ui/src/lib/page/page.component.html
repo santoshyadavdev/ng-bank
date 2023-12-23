@@ -21,6 +21,7 @@
             @if (!hideToolbar) {
               <ngbank-toolbar
                 (menuButtonClick)="matSideNav?.toggle()"
+                [showUserAvatar]="true"
                 class="d-block mb-4"
               ></ngbank-toolbar>
             }
