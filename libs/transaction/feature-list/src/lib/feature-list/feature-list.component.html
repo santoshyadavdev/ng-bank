@@ -1,49 +1,69 @@
 <ngbank-page>
-  <h1>Transactions</h1>
-
-  <ngbank-select-account
-    [accounts]="accounts$ | async"
-    (selectionChange)="selectAccount($event)"
-  ></ngbank-select-account>
-
-  <ngbank-new-transaction
-    [selectedAccountId]="selectedAccountId$ | async"
-    (createTransaction)="createTransaction($event)"
-  ></ngbank-new-transaction>
-
-  @if (
-    transactionsGroupedByBookingDate$ | async;
-    as transactionsGroupedByBookingDate
-  ) {
-    <mat-list>
-      @for (group of transactionsGroupedByBookingDate; track group) {
-        <div mat-subheader>
-          {{ group.bookingDate | date }}
-        </div>
-        @for (transaction of group.transactions; track transaction) {
-          <mat-list-item>
-            <span matListItemTitle>
-              {{
-                transaction.counterPartyName
-                  ? transaction.counterPartyName
-                  : '-'
-              }}
-            </span>
-            <span matListItemLine>
-              {{ transaction.e2eReference ? transaction.e2eReference : '-' }}
-            </span>
-            <span
-              matListItemMeta
-              [ngClass]="{ 'text-success': transaction.amount > 0 }"
-              >{{
-                transaction.amount | currency: transaction.currencyCode
-              }}</span
-            >
-          </mat-list-item>
-        }
+  <div class="d-flex align-items-center mb-4">
+    <h1 class="mat-headline-2 mb-0">Transactions</h1>
+    <div class="ms-auto ps-3">
+      @if (selectedAccountId$ | async; as selectedAccountId) {
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!selectedAccountId"
+          (click)="createTransaction(selectedAccountId)"
+        >
+          New transaction
+        </button>
       }
-    </mat-list>
-  } @else {
-    <p>You don't have any transactions yet</p>
-  }
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3 offset-lg-1 order-lg-1">
+      <p class="mb-4">
+        Current balance
+        <span class="d-block mat-headline-3 mb-0">{{ 1232.2 | currency }}</span>
+      </p>
+      <ngbank-select-account
+        [accounts]="accounts$ | async"
+        (selectionChange)="selectAccount($event)"
+      ></ngbank-select-account>
+    </div>
+    <div class="col-lg-8 order-lg-0">
+      @if (
+        transactionsGroupedByBookingDate$ | async;
+        as transactionsGroupedByBookingDate
+      ) {
+        <mat-list>
+          @for (group of transactionsGroupedByBookingDate; track group) {
+            <div mat-subheader>
+              {{ group.bookingDate | date }}
+            </div>
+            @for (transaction of group.transactions; track transaction) {
+              <mat-list-item>
+                <span matListItemTitle>
+                  {{
+                    transaction.counterPartyName
+                      ? transaction.counterPartyName
+                      : '-'
+                  }}
+                </span>
+                <span matListItemLine>
+                  {{
+                    transaction.e2eReference ? transaction.e2eReference : '-'
+                  }}
+                </span>
+                <span
+                  matListItemMeta
+                  [ngClass]="{ 'text-success': transaction.amount > 0 }"
+                  >{{
+                    transaction.amount | currency: transaction.currencyCode
+                  }}</span
+                >
+              </mat-list-item>
+            }
+          }
+        </mat-list>
+      } @else {
+        <p>You don't have any transactions yet</p>
+      }
+    </div>
+  </div>
 </ngbank-page>

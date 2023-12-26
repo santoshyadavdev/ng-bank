@@ -17,3 +17,15 @@
 .flex-1 {
   flex: 1 !important;
 }
+
+.order-lg-0 {
+  @media (min-width: map-get($grid-breakpoints, lg) + 1) {
+    order: 0 !important;
+  }
+}
+
+.order-lg-1 {
+  @media (min-width: map-get($grid-breakpoints, lg) + 1) {
+    order: 1 !important;
+  }
+}

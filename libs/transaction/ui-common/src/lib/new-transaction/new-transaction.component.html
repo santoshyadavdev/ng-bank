@@ -1,66 +1,69 @@
-<form [formGroup]="form" (ngSubmit)="submit()" class="mb-4" #f="ngForm">
-  <mat-form-field appearance="outline" class="w-100 mb-2">
-    <mat-label>counterPartyName</mat-label>
-    <input
-      matInput
-      placeholder="Enter counterPartyName"
-      type="text"
-      formControlName="counterPartyName"
-    />
-    @if (counterPartyName?.errors?.['required']) {
-      <mat-error>counterPartyName is required</mat-error>
-    }
-  </mat-form-field>
+<h1 mat-dialog-title>New transaction</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>counterPartyName</mat-label>
+      <input
+        matInput
+        placeholder="Enter counterPartyName"
+        type="text"
+        formControlName="counterPartyName"
+      />
+      @if (counterPartyName?.errors?.['required']) {
+        <mat-error>counterPartyName is required</mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="w-100 mb-2">
-    <mat-label>counterPartyIban</mat-label>
-    <input
-      matInput
-      placeholder="Enter counterPartyIban"
-      type="text"
-      formControlName="counterPartyIban"
-    />
-    @if (counterPartyIban?.errors?.['required']) {
-      <mat-error>counterPartyIban is required</mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>counterPartyIban</mat-label>
+      <input
+        matInput
+        placeholder="Enter counterPartyIban"
+        type="text"
+        formControlName="counterPartyIban"
+      />
+      @if (counterPartyIban?.errors?.['required']) {
+        <mat-error>counterPartyIban is required</mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="w-100 mb-2">
-    <mat-label>Amount</mat-label>
-    <input
-      matInput
-      placeholder="Enter amount"
-      type="number"
-      step="0.01"
-      formControlName="amount"
-    />
-    <mat-icon matSuffix>euro</mat-icon>
-    @if (amount?.errors?.['required']) {
-      <mat-error>Amount is required</mat-error>
-    }
-    @if (amount?.errors?.['min']) {
-      <mat-error>Should be at least 0.01 €</mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        placeholder="Enter amount"
+        type="number"
+        step="0.01"
+        formControlName="amount"
+      />
+      <mat-icon matSuffix>euro</mat-icon>
+      @if (amount?.errors?.['required']) {
+        <mat-error>Amount is required</mat-error>
+      }
+      @if (amount?.errors?.['min']) {
+        <mat-error>Should be at least 0.01 €</mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="w-100 mb-2">
-    <mat-label>e2eReference</mat-label>
-    <input
-      matInput
-      placeholder="Enter e2eReference"
-      type="text"
-      formControlName="e2eReference"
-    />
-    @if (e2eReference?.errors?.['maxlength']) {
-      <mat-error
-        >Maximum
-        {{ e2eReference?.errors?.['maxlength']?.requiredLength }} characters
-        allowed</mat-error
-      >
-    }
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>e2eReference</mat-label>
+      <input
+        matInput
+        placeholder="Enter e2eReference"
+        type="text"
+        formControlName="e2eReference"
+      />
+      @if (e2eReference?.errors?.['maxlength']) {
+        <mat-error
+          >Maximum
+          {{ e2eReference?.errors?.['maxlength']?.requiredLength }} characters
+          allowed</mat-error
+        >
+      }
+    </mat-form-field>
 
-  <button mat-flat-button color="primary" [disabled]="!form.valid">
-    Create transaction
-  </button>
-</form>
+    <button mat-flat-button color="primary" [disabled]="!form.valid">
+      Create transaction
+    </button>
+  </form>
+</div>

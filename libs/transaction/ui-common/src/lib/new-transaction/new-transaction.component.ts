@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, Inject, inject, ViewChild } from '@angular/core';
 
 import {
   FormBuilder,
@@ -18,6 +11,16 @@ import { NewTransaction, NewTransactionForm } from '@ngbank/transaction-domain';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+
+export interface NewTransactionDialogData {
+  selectedAccountId: string;
+}
 
 @Component({
   selector: 'ngbank-new-transaction',
@@ -27,16 +30,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogTitle,
+    MatDialogContent,
   ],
   templateUrl: './new-transaction.component.html',
   styleUrls: ['./new-transaction.component.scss'],
 })
 export class NewTransactionComponent {
   @ViewChild('f') ngForm!: NgForm;
-
-  @Input() selectedAccountId: string | null = null;
-  @Output() createTransaction: EventEmitter<NewTransaction> =
-    new EventEmitter<NewTransaction>();
 
   readonly form: FormGroup<NewTransactionForm>;
 
@@ -57,8 +58,13 @@ export class NewTransactionComponent {
   }
 
   private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly dialogRef: MatDialogRef<NewTransactionComponent> = inject(
+    MatDialogRef<NewTransactionComponent>
+  );
 
-  constructor() {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) readonly data: NewTransactionDialogData
+  ) {
     this.form = this.fb.group<NewTransactionForm>({
       counterPartyName: this.fb.control('', {
         nonNullable: true,
@@ -79,7 +85,7 @@ export class NewTransactionComponent {
   }
 
   submit() {
-    if (this.selectedAccountId && this.form.value.amount) {
+    if (this.data.selectedAccountId && this.form.value.amount) {
       const transaction: NewTransaction = {
         amount: -this.form.value.amount,
         bookingDate: new Date(),
@@ -90,10 +96,10 @@ export class NewTransactionComponent {
         }),
         counterPartyIban: this.form.value.counterPartyIban,
         counterPartyName: this.form.value.counterPartyName,
-        account: this.selectedAccountId,
+        account: this.data.selectedAccountId,
       };
 
-      this.createTransaction.emit(transaction);
+      this.dialogRef.close(transaction);
 
       this.ngForm.resetForm();
     }
