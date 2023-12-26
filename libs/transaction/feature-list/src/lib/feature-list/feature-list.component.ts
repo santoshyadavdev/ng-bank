@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { filter, map, Observable } from 'rxjs';
+import { combineLatest, filter, map, Observable } from 'rxjs';
 import {
   Account,
   NewTransactionDialogData,
@@ -17,6 +17,8 @@ import {
 } from '@ngbank/transaction-ui-common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'ngbank-feature-list',
@@ -28,17 +30,27 @@ import { MatDialog } from '@angular/material/dialog';
     SelectAccountComponent,
     NewTransactionComponent,
     MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './feature-list.component.html',
   styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
-  readonly accounts$: Observable<Account[]>;
-  readonly transactionsGroupedByBookingDate$: Observable<Array<{
+  readonly vm$: Observable<{
+    accounts: Account[];
+    transactionsGroupedByBookingDate: Array<{
+      bookingDate: string;
+      transactions: Transaction[];
+    }> | null;
+    selectedAccountId: string | null;
+  }>;
+  private readonly accounts$: Observable<Account[]>;
+  private readonly transactionsGroupedByBookingDate$: Observable<Array<{
     bookingDate: string;
     transactions: Transaction[];
   }> | null>;
-  readonly selectedAccountId$: Observable<string | null>;
+  private readonly selectedAccountId$: Observable<string | null>;
 
   private readonly store: Store = inject(Store);
   private readonly dialog: MatDialog = inject(MatDialog);
@@ -76,6 +88,19 @@ export class FeatureListComponent implements OnInit {
       );
     this.selectedAccountId$ = this.store.select(
       transactionFeature.selectSelectedAccountId
+    );
+    this.vm$ = combineLatest([
+      this.accounts$,
+      this.transactionsGroupedByBookingDate$,
+      this.selectedAccountId$,
+    ]).pipe(
+      map(
+        ([accounts, transactionsGroupedByBookingDate, selectedAccountId]) => ({
+          accounts,
+          transactionsGroupedByBookingDate,
+          selectedAccountId,
+        })
+      )
     );
   }
 

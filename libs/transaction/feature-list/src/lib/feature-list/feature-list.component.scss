@@ -1,0 +1,25 @@
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+  width: 42px;
+  height: 42px;
+  background: #e2effd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 16px;
+  color: #0759e5;
+  margin-left: 0;
+}
+
+.mdc-list-item--with-trailing-meta .mdc-list-item__end {
+  margin-right: 0;
+}
+
+.mdc-list-group__subheader {
+  margin: 24px 0 8px 0;
+  font-size: 20px;
+}
+
+.mdc-list > .mdc-list-group__subheader:first-child {
+  margin-top: 0;
+}
