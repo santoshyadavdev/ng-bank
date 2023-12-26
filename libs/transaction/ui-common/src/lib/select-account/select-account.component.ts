@@ -28,9 +28,6 @@ import { Account } from '@ngbank/transaction-domain';
 export class SelectAccountComponent implements OnInit, OnDestroy {
   readonly form: FormGroup<{ account: FormControl<string | null> }>;
 
-  private readonly onDestroy$$: Subject<void> = new Subject<void>();
-  private readonly fb: FormBuilder = inject(FormBuilder);
-
   @Input() set accounts(accounts: Account[] | null) {
     this._accounts = accounts;
 
@@ -46,6 +43,9 @@ export class SelectAccountComponent implements OnInit, OnDestroy {
   @Output() selectionChange: EventEmitter<string> = new EventEmitter<string>();
 
   private _accounts: Account[] | null = null;
+
+  private readonly onDestroy$$: Subject<void> = new Subject<void>();
+  private readonly fb: FormBuilder = inject(FormBuilder);
 
   constructor() {
     this.form = this.fb.group({
