@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +23,6 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'ngbank-new-transaction',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,

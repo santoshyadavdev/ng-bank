@@ -11,37 +11,39 @@
     (createTransaction)="createTransaction($event)"
   ></ngbank-new-transaction>
 
-  <mat-list
-    *ngIf="
-      transactionsGroupedByBookingDate$
-        | async as transactionsGroupedByBookingDate;
-      else noTransactions
-    "
-  >
-    <ng-container *ngFor="let group of transactionsGroupedByBookingDate">
-      <div mat-subheader>
-        {{ group.bookingDate | date }}
-      </div>
-
-      <mat-list-item *ngFor="let transaction of group.transactions">
-        <span matListItemTitle>
-          {{
-            transaction.counterPartyName ? transaction.counterPartyName : '-'
-          }}
-        </span>
-        <span matListItemLine>
-          {{ transaction.e2eReference ? transaction.e2eReference : '-' }}
-        </span>
-        <span
-          matListItemMeta
-          [ngClass]="{ 'text-success': transaction.amount > 0 }"
-          >{{ transaction.amount | currency : transaction.currencyCode }}</span
-        >
-      </mat-list-item>
-    </ng-container>
-  </mat-list>
-
-  <ng-template #noTransactions>
-    <p>You don't have any transactions yet</p></ng-template
-  >
+  @if (
+    transactionsGroupedByBookingDate$ | async;
+    as transactionsGroupedByBookingDate
+  ) {
+    <mat-list>
+      @for (group of transactionsGroupedByBookingDate; track group) {
+        <div mat-subheader>
+          {{ group.bookingDate | date }}
+        </div>
+        @for (transaction of group.transactions; track transaction) {
+          <mat-list-item>
+            <span matListItemTitle>
+              {{
+                transaction.counterPartyName
+                  ? transaction.counterPartyName
+                  : '-'
+              }}
+            </span>
+            <span matListItemLine>
+              {{ transaction.e2eReference ? transaction.e2eReference : '-' }}
+            </span>
+            <span
+              matListItemMeta
+              [ngClass]="{ 'text-success': transaction.amount > 0 }"
+              >{{
+                transaction.amount | currency: transaction.currencyCode
+              }}</span
+            >
+          </mat-list-item>
+        }
+      }
+    </mat-list>
+  } @else {
+    <p>You don't have any transactions yet</p>
+  }
 </ngbank-page>

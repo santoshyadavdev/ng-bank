@@ -7,7 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatSelectModule } from '@angular/material/select';
 import {
   FormBuilder,
@@ -21,7 +21,7 @@ import { Account } from '@ngbank/transaction-domain';
 @Component({
   selector: 'ngbank-select-account',
   standalone: true,
-  imports: [CommonModule, MatSelectModule, ReactiveFormsModule],
+  imports: [MatSelectModule, ReactiveFormsModule],
   templateUrl: './select-account.component.html',
   styleUrls: ['./select-account.component.scss'],
 })

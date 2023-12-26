@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PageComponent } from '@ngbank/ui';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User, userFeature } from '@ngbank/user/store';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ngbank-dashboard',
   standalone: true,
-  imports: [CommonModule, PageComponent],
+  imports: [PageComponent, AsyncPipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })

@@ -7,9 +7,9 @@
       type="text"
       formControlName="counterPartyName"
     />
-    <mat-error *ngIf="counterPartyName?.errors?.['required']"
-      >counterPartyName is required</mat-error
-    >
+    @if (counterPartyName?.errors?.['required']) {
+      <mat-error>counterPartyName is required</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="w-100 mb-2">
@@ -20,9 +20,9 @@
       type="text"
       formControlName="counterPartyIban"
     />
-    <mat-error *ngIf="counterPartyIban?.errors?.['required']"
-      >counterPartyIban is required</mat-error
-    >
+    @if (counterPartyIban?.errors?.['required']) {
+      <mat-error>counterPartyIban is required</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="w-100 mb-2">
@@ -35,12 +35,12 @@
       formControlName="amount"
     />
     <mat-icon matSuffix>euro</mat-icon>
-    <mat-error *ngIf="amount?.errors?.['required']"
-      >Amount is required</mat-error
-    >
-    <mat-error *ngIf="amount?.errors?.['min']"
-      >Should be at least 0.01 €</mat-error
-    >
+    @if (amount?.errors?.['required']) {
+      <mat-error>Amount is required</mat-error>
+    }
+    @if (amount?.errors?.['min']) {
+      <mat-error>Should be at least 0.01 €</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="w-100 mb-2">
@@ -51,11 +51,13 @@
       type="text"
       formControlName="e2eReference"
     />
-    <mat-error *ngIf="e2eReference?.errors?.['maxlength']"
-      >Maximum
-      {{ e2eReference?.errors?.['maxlength']?.requiredLength }} characters
-      allowed</mat-error
-    >
+    @if (e2eReference?.errors?.['maxlength']) {
+      <mat-error
+        >Maximum
+        {{ e2eReference?.errors?.['maxlength']?.requiredLength }} characters
+        allowed</mat-error
+      >
+    }
   </mat-form-field>
 
   <button mat-flat-button color="primary" [disabled]="!form.valid">
