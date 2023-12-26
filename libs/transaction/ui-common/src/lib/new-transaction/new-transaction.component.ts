@@ -7,7 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NewTransaction, NewTransactionForm } from '@ngbank/transaction-domain';
+import {
+  NewTransaction,
+  NewTransactionDialogData,
+  NewTransactionForm,
+} from '@ngbank/transaction-domain';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,10 +21,6 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-
-export interface NewTransactionDialogData {
-  selectedAccountId: string;
-}
 
 @Component({
   selector: 'ngbank-new-transaction',

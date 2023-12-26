@@ -7,7 +7,6 @@ import {
   TransactionApiActions,
   TransactionListActions,
 } from './transaction.actions';
-import { Store } from '@ngrx/store';
 import { AccountService } from '../infrastructure/account.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,7 +16,6 @@ export class TransactionEffects {
   private readonly transactionService: TransactionService =
     inject(TransactionService);
   private readonly actions$: Actions = inject(Actions);
-  private readonly store: Store = inject(Store);
   private readonly snackBar: MatSnackBar = inject(MatSnackBar);
 
   loadTransactions$ = createEffect(() => {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { filter, map, Observable } from 'rxjs';
 import {
   Account,
+  NewTransactionDialogData,
   Transaction,
   transactionFeature,
   TransactionListActions,
@@ -12,7 +13,6 @@ import { PageComponent } from '@ngbank/ui';
 import { MatListModule } from '@angular/material/list';
 import {
   NewTransactionComponent,
-  NewTransactionDialogData,
   SelectAccountComponent,
 } from '@ngbank/transaction-ui-common';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,15 +55,18 @@ export class FeatureListComponent implements OnInit {
 
           const map = new Map<string, Transaction[]>();
 
-          transactions.map((i) =>
-            map.set(
-              i.bookingDate.toDateString(),
-              transactions.filter(
-                (t) =>
-                  t.bookingDate.toDateString() === i.bookingDate.toDateString()
+          [...transactions]
+            .sort((a, b) => b.bookingDate.getTime() - a.bookingDate.getTime())
+            .map((i) =>
+              map.set(
+                i.bookingDate.toDateString(),
+                transactions.filter(
+                  (t) =>
+                    t.bookingDate.toDateString() ===
+                    i.bookingDate.toDateString()
+                )
               )
-            )
-          );
+            );
 
           return Array.from(map.keys()).map((bookingDate) => ({
             bookingDate,
