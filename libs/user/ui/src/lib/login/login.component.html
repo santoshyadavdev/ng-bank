@@ -2,7 +2,6 @@
   <h1 class="mat-headline-1 mb-5">
     Where banking meets the summit of excellence!
   </h1>
-
   <form class="mb-4" [formGroup]="form" (ngSubmit)="login()">
     <mat-form-field appearance="outline" class="w-100 mb-2">
       <mat-label>Email</mat-label>
@@ -12,12 +11,13 @@
         type="email"
         formControlName="email"
       />
-      <mat-error *ngIf="email?.errors?.['required']"
-        >Email is required</mat-error
-      >
-      <mat-error *ngIf="email?.errors?.['email']">Not a valid email</mat-error>
+      @if (email?.errors?.['required']) {
+        <mat-error>Email is required</mat-error>
+      }
+      @if (email?.errors?.['email']) {
+        <mat-error>Not a valid email</mat-error>
+      }
     </mat-form-field>
-
     <mat-form-field appearance="outline" class="w-100 mb-2">
       <mat-label>Password</mat-label>
       <input
@@ -38,14 +38,13 @@
           hidePassword ? 'visibility' : 'visibility_off'
         }}</mat-icon>
       </button>
-      <mat-error *ngIf="password?.errors?.['required']"
-        >Password is required</mat-error
-      >
-      <mat-error *ngIf="password?.errors?.['minlength']"
-        >Password must be at least 8 characters long</mat-error
-      >
+      @if (password?.errors?.['required']) {
+        <mat-error>Password is required</mat-error>
+      }
+      @if (password?.errors?.['minlength']) {
+        <mat-error>Password must be at least 8 characters long</mat-error>
+      }
     </mat-form-field>
-
     <button
       type="submit"
       mat-flat-button
@@ -56,7 +55,6 @@
       Sign in
     </button>
   </form>
-
   <p class="mb-1 d-flex align-items-center justify-content-center">
     Don't have an account?<a
       [routerLink]="['/register']"
@@ -70,7 +68,6 @@
   <p class="text-center">
     <a mat-button color="primary" title="Forgot password">Forgot password?</a>
   </p>
-
   <button mat-flat-button color="primary" class="w-100" (click)="auth0Login()">
     Auth0 Login
   </button>

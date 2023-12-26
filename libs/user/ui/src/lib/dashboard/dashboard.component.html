@@ -1,5 +1,5 @@
 <ngbank-page>
-  <ng-container *ngIf="user$ | async as user">
+  @if (user$ | async; as user) {
     <h1>Welcome, {{ user.name }}!</h1>
-  </ng-container>
+  }
 </ngbank-page>

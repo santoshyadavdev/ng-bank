@@ -3,4 +3,11 @@
     <mat-icon>menu</mat-icon>
   </button>
   <a routerLink="/" class="mat-headline-5 mb-0 ms-2">{{ title }}</a>
+  @if (showUserAvatar) {
+    <ngbank-user-avatar
+      class="ms-auto"
+      [width]="36"
+      [height]="36"
+    ></ngbank-user-avatar>
+  }
 </mat-toolbar>

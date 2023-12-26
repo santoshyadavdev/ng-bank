@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { User, userActions } from '@ngbank/user/store';
 import { Store } from '@ngrx/store';
 import { FrontPageComponent, PageComponent } from '@ngbank/ui';
@@ -15,13 +15,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'ngbank-registration',
   standalone: true,
   imports: [
-    CommonModule,
     PageComponent,
     FrontPageComponent,
     MatButtonModule,
@@ -79,7 +77,6 @@ export class RegistrationComponent {
     ) {
       const user: User = {
         $id: '',
-        userId: uuidv4(),
         name: this.form.value.name,
         password: this.form.value.password,
         email: this.form.value.email,

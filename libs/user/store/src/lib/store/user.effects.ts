@@ -33,7 +33,7 @@ export const getCurrentUser$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
       ofType(userActions.emailLoginSuccess),
-      exhaustMap(({ userSession }) =>
+      exhaustMap(() =>
         loginService.getCurentAccount().pipe(
           map((user) =>
             userActions.getCurrentUserSuccess({
@@ -114,6 +114,23 @@ export const snackBarAfterError$ = createEffect(
       ofType(userActions.emailLoginFailure, userActions.createAccountFailure),
       tap(({ error }) =>
         snackBar.open(error?.error?.message ?? 'An error has occurred!')
+      )
+    );
+  },
+  { functional: true, dispatch: false }
+);
+
+export const sendVerifyEmail$ = createEffect(
+  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
+    return actions$.pipe(
+      ofType(userActions.createAccount),
+      exhaustMap(() =>
+        loginService.createEmailVerification().pipe(
+          map((token) => console.log(token)),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.createAccountFailure({ error }))
+          )
+        )
       )
     );
   },
