@@ -25,19 +25,11 @@ export class TransactionService {
       );
   }
 
-  createTransaction(
-    transaction: NewTransaction,
-    userId: string | null
-  ): Observable<Transaction> {
-    if (!userId) {
-      throw new Error('Unauthorized!');
-    }
-
+  createTransaction(transaction: NewTransaction): Observable<Transaction> {
     return this.httpClient
       .post<Transaction>(`${this.apiPath}`, {
         documentId: 'unique()',
         data: transaction,
-        permissions: [`read("user:${userId}")`],
       })
       .pipe(
         map((transaction) => ({

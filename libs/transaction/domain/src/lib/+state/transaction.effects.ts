@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, exhaustMap, map, of, tap } from 'rxjs';
 import { TransactionService } from '../infrastructure/transaction.service';
 import {
@@ -8,7 +8,6 @@ import {
   TransactionListActions,
 } from './transaction.actions';
 import { Store } from '@ngrx/store';
-import { userFeature } from '@ngbank/user/store';
 import { AccountService } from '../infrastructure/account.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -40,18 +39,15 @@ export class TransactionEffects {
   createTransaction$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TransactionListActions.createTransaction),
-      concatLatestFrom(() => this.store.select(userFeature.selectUser)),
-      concatMap(([{ transaction }, user]) =>
-        this.transactionService
-          .createTransaction(transaction, user?.$id ?? null)
-          .pipe(
-            map((transaction) =>
-              TransactionApiActions.transactionCreatedSuccess({ transaction })
-            ),
-            catchError((error) =>
-              of(TransactionApiActions.transactionCreatedFailure({ error }))
-            )
+      concatMap(({ transaction }) =>
+        this.transactionService.createTransaction(transaction).pipe(
+          map((transaction) =>
+            TransactionApiActions.transactionCreatedSuccess({ transaction })
+          ),
+          catchError((error) =>
+            of(TransactionApiActions.transactionCreatedFailure({ error }))
           )
+        )
       )
     );
   });
