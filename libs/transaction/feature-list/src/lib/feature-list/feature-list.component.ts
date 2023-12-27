@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadStatus } from '@ngbank/util-entities';
 
 @Component({
   selector: 'ngbank-feature-list',
@@ -44,6 +45,7 @@ export class FeatureListComponent implements OnInit {
       transactions: Transaction[];
     }> | null;
     selectedAccountId: string | null;
+    loadStatus: LoadStatus;
   }>;
   private readonly accounts$: Observable<Account[]>;
   private readonly transactionsGroupedByBookingDate$: Observable<Array<{
@@ -51,6 +53,7 @@ export class FeatureListComponent implements OnInit {
     transactions: Transaction[];
   }> | null>;
   private readonly selectedAccountId$: Observable<string | null>;
+  private readonly loadStatus$: Observable<LoadStatus>;
 
   private readonly store: Store = inject(Store);
   private readonly dialog: MatDialog = inject(MatDialog);
@@ -89,16 +92,24 @@ export class FeatureListComponent implements OnInit {
     this.selectedAccountId$ = this.store.select(
       transactionFeature.selectSelectedAccountId
     );
+    this.loadStatus$ = this.store.select(transactionFeature.selectLoadStatus);
     this.vm$ = combineLatest([
       this.accounts$,
       this.transactionsGroupedByBookingDate$,
       this.selectedAccountId$,
+      this.loadStatus$,
     ]).pipe(
       map(
-        ([accounts, transactionsGroupedByBookingDate, selectedAccountId]) => ({
+        ([
           accounts,
           transactionsGroupedByBookingDate,
           selectedAccountId,
+          loadStatus,
+        ]) => ({
+          accounts,
+          transactionsGroupedByBookingDate,
+          selectedAccountId,
+          loadStatus,
         })
       )
     );

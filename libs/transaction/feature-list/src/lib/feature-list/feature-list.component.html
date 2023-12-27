@@ -31,7 +31,11 @@
             </p>
           </div>
         </div>
-        @if (vm.transactionsGroupedByBookingDate) {
+        @if (vm.loadStatus === 'LOADING') {
+          <mat-spinner [diameter]="42" class="mx-auto"></mat-spinner>
+        } @else if (
+          vm.loadStatus === 'LOADED' && vm.transactionsGroupedByBookingDate
+        ) {
           <mat-list>
             @for (group of vm.transactionsGroupedByBookingDate; track group) {
               <div mat-subheader>
@@ -63,7 +67,7 @@
               }
             }
           </mat-list>
-        } @else {
+        } @else if (vm.loadStatus === 'LOADED') {
           <p>You don't have any transactions yet</p>
         }
       </div>

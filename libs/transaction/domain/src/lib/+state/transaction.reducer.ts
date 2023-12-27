@@ -7,12 +7,14 @@ import {
 } from './transaction.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Account } from '../entities/account';
+import { LoadStatus } from '@ngbank/util-entities';
 
 export interface TransactionState {
   transactions: Transaction[];
   accounts: Account[];
   selectedAccountId: string | null;
   error: HttpErrorResponse | null;
+  loadStatus: LoadStatus;
 }
 
 export const initialState: TransactionState = {
@@ -20,6 +22,7 @@ export const initialState: TransactionState = {
   accounts: [],
   selectedAccountId: null,
   error: null,
+  loadStatus: 'NOT_LOADED',
 };
 
 export const transactionFeature = createFeature({
@@ -28,15 +31,16 @@ export const transactionFeature = createFeature({
     initialState,
     on(
       TransactionApiActions.transactionsLoadedSuccess,
-      (state: TransactionState, { transactions }) => ({
+      (state: TransactionState, { transactions }): TransactionState => ({
         ...state,
         transactions,
         error: null,
+        loadStatus: 'LOADED',
       })
     ),
     on(
       TransactionApiActions.transactionCreatedSuccess,
-      (state: TransactionState, { transaction }) => ({
+      (state: TransactionState, { transaction }): TransactionState => ({
         ...state,
         transactions: [transaction, ...state.transactions],
         error: null,
@@ -44,7 +48,7 @@ export const transactionFeature = createFeature({
     ),
     on(
       AccountApiActions.accountsLoadedSuccess,
-      (state: TransactionState, { accounts }) => ({
+      (state: TransactionState, { accounts }): TransactionState => ({
         ...state,
         accounts,
         error: null,
@@ -52,16 +56,21 @@ export const transactionFeature = createFeature({
     ),
     on(
       TransactionListActions.selectAccount,
-      (state: TransactionState, { accountId }) => ({
+      (state: TransactionState, { accountId }): TransactionState => ({
         ...state,
         selectedAccountId: accountId,
+        loadStatus: 'LOADING',
       })
     ),
     on(
       TransactionApiActions.transactionsLoadedFailure,
       TransactionApiActions.transactionCreatedFailure,
       AccountApiActions.accountsLoadedFailure,
-      (state: TransactionState, { error }) => ({ ...state, error })
+      (state: TransactionState, { error }): TransactionState => ({
+        ...state,
+        error,
+        loadStatus: 'LOADED',
+      })
     )
   ),
 });
