@@ -1,29 +1,29 @@
-<h1 mat-dialog-title>New transaction</h1>
-<div mat-dialog-content>
-  <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+<span mat-dialog-title>New transaction</span>
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm" class="pt-1">
     <mat-form-field appearance="outline" class="w-100 mb-2">
-      <mat-label>counterPartyName</mat-label>
+      <mat-label>Payee</mat-label>
       <input
         matInput
-        placeholder="Enter counterPartyName"
+        placeholder="Enter payee"
         type="text"
         formControlName="counterPartyName"
       />
       @if (counterPartyName?.errors?.['required']) {
-        <mat-error>counterPartyName is required</mat-error>
+        <mat-error>Payee is required</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-100 mb-2">
-      <mat-label>counterPartyIban</mat-label>
+      <mat-label>IBAN</mat-label>
       <input
         matInput
-        placeholder="Enter counterPartyIban"
+        placeholder="Enter IBAN"
         type="text"
         formControlName="counterPartyIban"
       />
       @if (counterPartyIban?.errors?.['required']) {
-        <mat-error>counterPartyIban is required</mat-error>
+        <mat-error>IBAN is required</mat-error>
       }
     </mat-form-field>
 
@@ -46,10 +46,10 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-100 mb-2">
-      <mat-label>e2eReference</mat-label>
+      <mat-label>Reason for payment</mat-label>
       <input
         matInput
-        placeholder="Enter e2eReference"
+        placeholder="Enter reason for payment"
         type="text"
         formControlName="e2eReference"
       />
@@ -66,4 +66,4 @@
       Create transaction
     </button>
   </form>
-</div>
+</mat-dialog-content>
