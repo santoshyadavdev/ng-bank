@@ -1,4 +1,4 @@
-@import '../variables';
+@use '../variables';
 
 .me-auto {
   margin-right: auto !important;
@@ -21,7 +21,7 @@
   margin-bottom: auto !important;
 }
 
-@each $name, $spacer in $spacers {
+@each $name, $spacer in variables.$spacers {
   .pe-#{$name} {
     padding-right: $spacer !important;
   }
