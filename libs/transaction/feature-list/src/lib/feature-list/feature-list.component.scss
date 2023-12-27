@@ -1,0 +1,28 @@
+@use '@angular/material' as mat;
+@use 'libs/shared/ui/src/lib/styles/_theme.scss';
+
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+  width: 42px;
+  height: 42px;
+  background: mat.get-theme-color(theme.$ngbank-light-theme, primary, 50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin-right: 12px;
+  color: mat.get-theme-color(theme.$ngbank-light-theme, primary, 800);
+  margin-left: 0;
+}
+
+.mdc-list-item--with-trailing-meta .mdc-list-item__end {
+  margin-right: 0;
+}
+
+.mdc-list-group__subheader {
+  margin: 24px 0 8px 0;
+  font-size: 20px;
+}
+
+.mdc-list > .mdc-list-group__subheader:first-child {
+  margin-top: 0;
+}

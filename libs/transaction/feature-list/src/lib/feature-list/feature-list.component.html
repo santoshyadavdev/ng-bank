@@ -1,0 +1,76 @@
+<ngbank-page>
+  @if (vm$ | async; as vm) {
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="d-flex align-items-center mb-5">
+          <h1 class="mat-headline-2 mb-0">Transactions</h1>
+          <div class="ms-auto ps-3">
+            <button
+              mat-flat-button
+              color="primary"
+              [disabled]="!vm.selectedAccountId"
+              (click)="createTransaction(vm.selectedAccountId)"
+            >
+              New transaction
+            </button>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-6 col-lg-4">
+            <ngbank-select-account
+              [accounts]="vm.accounts"
+              (selectionChange)="selectAccount($event)"
+            ></ngbank-select-account>
+          </div>
+          <div class="col-6 col-lg-8 d-flex">
+            <p class="mb-0 ps-3 ms-auto">
+              Current balance
+              <span class="d-block mat-headline-3 mb-0">{{
+                1232.2 | currency
+              }}</span>
+            </p>
+          </div>
+        </div>
+        @if (vm.loadStatus === 'LOADING') {
+          <mat-spinner [diameter]="42" class="mx-auto"></mat-spinner>
+        } @else if (
+          vm.loadStatus === 'LOADED' && vm.transactionsGroupedByBookingDate
+        ) {
+          <mat-list>
+            @for (group of vm.transactionsGroupedByBookingDate; track group) {
+              <div mat-subheader>
+                {{ group.bookingDate | date: 'shortDate' }}
+              </div>
+              @for (transaction of group.transactions; track transaction) {
+                <mat-list-item>
+                  <mat-icon matListItemIcon>storefront</mat-icon>
+                  <span matListItemTitle>
+                    {{
+                      transaction.counterPartyName
+                        ? transaction.counterPartyName
+                        : '-'
+                    }}
+                  </span>
+                  <span matListItemLine>
+                    {{
+                      transaction.e2eReference ? transaction.e2eReference : '-'
+                    }}
+                  </span>
+                  <span
+                    matListItemMeta
+                    [ngClass]="{ 'text-success': transaction.amount > 0 }"
+                    >{{
+                      transaction.amount | currency: transaction.currencyCode
+                    }}</span
+                  >
+                </mat-list-item>
+              }
+            }
+          </mat-list>
+        } @else if (vm.loadStatus === 'LOADED') {
+          <p>You don't have any transactions yet</p>
+        }
+      </div>
+    </div>
+  }
+</ngbank-page>

@@ -1,0 +1,41 @@
+@use '@angular/material' as mat;
+@use 'variables';
+@use 'palette';
+
+$ngbank-primary: mat.define-palette(palette.$ngbank-blue);
+$ngbank-accent: mat.define-palette(palette.$ngbank-yellow);
+$ngbank-typography: mat.define-typography-config(
+  $font-family: variables.$font-family-sans-serif,
+  $headline-1: mat.define-typography-level(40px, 1.2, 500),
+  $headline-2: mat.define-typography-level(32px, 1.2, 500),
+  $headline-3: mat.define-typography-level(28px, 1.2, 500),
+  $headline-4: mat.define-typography-level(24px, 1.2, 500),
+  $headline-5: mat.define-typography-level(20px, 1.2, 500),
+  $headline-6: mat.define-typography-level(16px, 1.2, 500),
+  $subtitle-1: mat.define-typography-level(28px, 1.2, 500),
+  $subtitle-2: mat.define-typography-level(24px, 1.2, 500),
+  $body-1: mat.define-typography-level(16px, 1.5, 500),
+  $body-2: mat.define-typography-level(16px, 1.5, 400),
+  $caption: mat.define-typography-level(14px, 1.5, 500),
+  $button: mat.define-typography-level(16px, 1.5, 500),
+);
+
+$ngbank-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $ngbank-primary,
+      accent: $ngbank-accent,
+    ),
+    typography: $ngbank-typography,
+    density: 0,
+  )
+);
+
+$ngbank-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $ngbank-primary,
+      accent: $ngbank-accent,
+    ),
+  )
+);
