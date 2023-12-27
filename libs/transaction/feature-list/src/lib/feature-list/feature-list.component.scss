@@ -1,13 +1,16 @@
+@use '@angular/material' as mat;
+@use 'libs/shared/ui/src/lib/styles/_theme.scss';
+
 .mdc-list-item--with-leading-icon .mdc-list-item__start {
   width: 42px;
   height: 42px;
-  background: #e2effd;
+  background: mat.get-theme-color(theme.$ngbank-light-theme, primary, 50);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  margin-right: 16px;
-  color: #0759e5;
+  border-radius: 10px;
+  margin-right: 12px;
+  color: mat.get-theme-color(theme.$ngbank-light-theme, primary, 800);
   margin-left: 0;
 }
 
