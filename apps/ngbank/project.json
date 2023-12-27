@@ -15,8 +15,15 @@
         "main": "apps/ngbank/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ngbank/tsconfig.app.json",
-        "assets": ["apps/ngbank/src/favicon.ico", "apps/ngbank/src/assets"],
-        "styles": ["apps/ngbank/src/styles.scss"],
+        "assets": [
+          "apps/ngbank/src/favicon.ico",
+          {
+            "input": "libs/shared/ui/src/assets",
+            "glob": "**/*",
+            "output": "assets/ui/"
+          }
+        ],
+        "styles": ["libs/shared/ui/src/lib/styles/styles.scss"],
         "scripts": []
       },
       "configurations": {

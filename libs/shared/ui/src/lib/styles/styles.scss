@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+@use 'theme';
+@use 'utilities';
+@use 'overrides';
+@use 'grid';
+
+@include mat.core();
+
+@include mat.all-component-themes(theme.$ngbank-light-theme);
+
+@media (prefers-color-scheme: dark) {
+  @include mat.all-component-colors(theme.$ngbank-dark-theme);
+}
+
+@include mat.typography-hierarchy(theme.$ngbank-typography);
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
