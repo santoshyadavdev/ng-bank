@@ -1,5 +1,5 @@
 @use 'sass:math';
-@import '../styles/variables';
+@use '../styles/variables';
 
 :host {
   display: flex;
@@ -12,13 +12,13 @@
 }
 
 main {
-  padding: map-get($spacers, 2) 0;
+  padding: map-get(variables.$spacers, 2) 0;
 
-  @media (min-width: map-get($grid-breakpoints, sm) + 1) {
-    padding: map-get($spacers, 4) map-get($spacers, 2);
+  @media (min-width: map-get(variables.$grid-breakpoints, sm) + 1) {
+    padding: map-get(variables.$spacers, 4) map-get(variables.$spacers, 2);
   }
 
-  @media (min-width: map-get($grid-breakpoints, lg) + 1) {
-    padding: 2rem map-get($spacers, 4);
+  @media (min-width: map-get(variables.$grid-breakpoints, lg) + 1) {
+    padding: 2rem map-get(variables.$spacers, 4);
   }
 }

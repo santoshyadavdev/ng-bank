@@ -1,3 +1,5 @@
+@use '../variables';
+
 .d-block {
   display: block !important;
 }
@@ -10,7 +12,7 @@
   display: none !important;
 }
 
-@each $name, $breakpoint in $grid-breakpoints {
+@each $name, $breakpoint in variables.$grid-breakpoints {
   @media (min-width: $breakpoint + 1) {
     .d-#{$name}-block {
       display: block !important;
