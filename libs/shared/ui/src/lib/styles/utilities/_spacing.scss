@@ -1,0 +1,66 @@
+@use '../variables';
+
+.me-auto {
+  margin-right: auto !important;
+}
+.ms-auto {
+  margin-left: auto !important;
+}
+.mt-auto {
+  margin-top: auto !important;
+}
+.mb-auto {
+  margin-bottom: auto !important;
+}
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.my-auto {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+
+@each $name, $spacer in variables.$spacers {
+  .pe-#{$name} {
+    padding-right: $spacer !important;
+  }
+  .ps-#{$name} {
+    padding-left: $spacer !important;
+  }
+  .pt-#{$name} {
+    padding-top: $spacer !important;
+  }
+  .pb-#{$name} {
+    padding-bottom: $spacer !important;
+  }
+  .px-#{$name} {
+    padding-right: $spacer !important;
+    padding-left: $spacer !important;
+  }
+  .py-#{$name} {
+    padding-top: $spacer !important;
+    padding-bottom: $spacer !important;
+  }
+
+  .me-#{$name} {
+    margin-right: $spacer !important;
+  }
+  .ms-#{$name} {
+    margin-left: $spacer !important;
+  }
+  .mt-#{$name} {
+    margin-top: $spacer !important;
+  }
+  .mb-#{$name} {
+    margin-bottom: $spacer !important;
+  }
+  .mx-#{$name} {
+    margin-right: $spacer !important;
+    margin-left: $spacer !important;
+  }
+  .my-#{$name} {
+    margin-top: $spacer !important;
+    margin-bottom: $spacer !important;
+  }
+}

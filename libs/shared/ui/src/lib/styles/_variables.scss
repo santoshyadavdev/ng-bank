@@ -1,0 +1,38 @@
+$font-family-sans-serif:
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  'Noto Sans',
+  'Liberation Sans',
+  Arial,
+  sans-serif,
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
+  'Noto Color Emoji';
+
+$dark-primary-text: rgba(black, 0.87);
+$light-primary-text: white;
+
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 2.25,
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 599px,
+  md: 959px,
+  lg: 1279px,
+  xl: 1599px,
+);
+
+$grid-columns: 12;
+$grid-gutter-width: 2rem;

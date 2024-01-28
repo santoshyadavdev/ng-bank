@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ngbank/environment": ["libs/environment/src/index.ts"],
+      "@ngbank/ui": ["libs/shared/ui/src/index.ts"],
+      "@ngbank/user/store": ["libs/user/store/src/index.ts"],
+      "@ngbank/user/ui": ["libs/user/ui/src/index.ts"],
+      "@ngbank/util-auth": ["libs/shared/util-auth/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
