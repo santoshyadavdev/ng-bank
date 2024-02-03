@@ -2,6 +2,7 @@ import { createActionGroup, props, emptyProps } from '@ngrx/store';
 import { User } from '../user';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserSession } from '../session';
+import { Token } from '../token';
 
 export const userActions = createActionGroup({
   source: 'User',
@@ -20,10 +21,11 @@ export const userActions = createActionGroup({
       message?: string;
     }>(),
     emailLoginFailure: props<{ error: HttpErrorResponse }>(),
-    creatJWTToken: emptyProps(),
-    createJWTTokenSuccess: props<{ token: string }>(),
-    createJWTTokenFailure: props<{ error: HttpErrorResponse }>(),
     logout: emptyProps(),
     getCurrentUserSuccess: props<{ user: User }>(),
+    SendEmailVerificationEmail: emptyProps(),
+    EmailVerificationTokenSuccess: props<{ token: Token }>(),
+    VerifyUserEmail: props<{ token: Token }>(),
+    VerifyUserEmailSuccess: props<{ forward: string; message?: string }>(),
   },
 });

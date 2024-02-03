@@ -28,4 +28,9 @@ export const userRoutes: Route[] = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'verify',
+    loadComponent: () =>
+      import('./verify/verify.component').then((m) => m.VerifyComponent),
+  },
 ];
