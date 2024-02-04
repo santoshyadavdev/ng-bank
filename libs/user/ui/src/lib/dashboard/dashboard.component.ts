@@ -11,13 +11,13 @@ import { userFeature, userActions } from '@ngbank/user/store';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   private readonly store: Store = inject(Store);
   user = this.store.selectSignal(userFeature.selectUser);
 
   constructor() {}
 
-  ngOnInit(): void {
+  sendVerificationEmail() {
     if (this.user()?.emailVerification === false) {
       this.store.dispatch(userActions.sendEmailVerificationEmail());
     }
