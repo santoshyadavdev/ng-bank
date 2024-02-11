@@ -1,5 +1,6 @@
 <ngbank-page>
-  @if (user$ | async; as user) {
-    <h1>Welcome, {{ user.name }}!</h1>
+  @if (user()) {
+    <button (click)="sendVerificationEmail()">Send Verification Email</button>
+    <h1>Welcome, {{ user()?.name }}!</h1>
   }
 </ngbank-page>
