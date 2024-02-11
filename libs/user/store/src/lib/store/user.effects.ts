@@ -56,9 +56,8 @@ export const createAccount$ = createEffect(
       ofType(userActions.createAccount),
       exhaustMap(({ user }) =>
         loginService.createAccount(user).pipe(
-          map((user) =>
+          map(() =>
             userActions.createAccountSuccess({
-              user,
               forward: '/login',
               message: 'Account created successfully. Please log in.',
             })

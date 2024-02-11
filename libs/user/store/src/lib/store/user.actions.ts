@@ -9,7 +9,6 @@ export const userActions = createActionGroup({
   events: {
     createAccount: props<{ user: User }>(),
     createAccountSuccess: props<{
-      user: User;
       forward: string;
       message?: string;
     }>(),
@@ -23,9 +22,9 @@ export const userActions = createActionGroup({
     emailLoginFailure: props<{ error: HttpErrorResponse }>(),
     logout: emptyProps(),
     getCurrentUserSuccess: props<{ user: User }>(),
-    SendEmailVerificationEmail: emptyProps(),
-    EmailVerificationTokenSuccess: props<{ token: Token }>(),
-    VerifyUserEmail: props<{ token: Token }>(),
-    VerifyUserEmailSuccess: props<{ forward: string; message?: string }>(),
+    sendEmailVerificationEmail: emptyProps(),
+    emailVerificationTokenSuccess: props<{ token: Token }>(),
+    verifyUserEmail: props<{ token: Token }>(),
+    verifyUserEmailSuccess: props<{ forward: string; message?: string }>(),
   },
 });

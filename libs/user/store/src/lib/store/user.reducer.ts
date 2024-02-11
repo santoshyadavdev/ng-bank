@@ -3,7 +3,6 @@ import { User } from '../user';
 import { userActions } from './user.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserSession } from '../session';
-import { state } from '@angular/animations';
 import { Token } from '../token';
 
 export interface UserState {
@@ -22,9 +21,8 @@ const initialState: UserState = {
 
 const userReducer = createReducer(
   initialState,
-  on(userActions.createAccountSuccess, (state, { user }) => ({
+  on(userActions.createAccountSuccess, (state) => ({
     ...state,
-    user,
   })),
   on(userActions.emailLoginFailure, (state, { error }) => ({
     ...state,
