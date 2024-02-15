@@ -1,3 +1,7 @@
+@use '@angular/material' as mat;
+@use 'theme';
+@use 'variables';
+
 .mat-mdc-button,
 .mat-mdc-raised-button,
 .mat-mdc-unelevated-button,
@@ -5,4 +9,16 @@
   &.mat-mdc-button-base {
     height: 42px !important;
   }
+}
+
+.mat-mdc-dialog-container .mdc-dialog__title {
+  font-size: mat.get-theme-typography(
+    theme.$ngbank-typography,
+    headline-5,
+    font-size
+  ) !important;
+}
+
+.mdc-dialog__title {
+  padding-bottom: map-get(variables.$spacers, 3) !important;
 }

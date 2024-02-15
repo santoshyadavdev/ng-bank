@@ -3,6 +3,7 @@
     <mat-nav-list>
       @if (isAuthenticated$ | async) {
         <a mat-list-item routerLink="/dashboard">Dashboard</a>
+        <a mat-list-item routerLink="/transactions">Transactions</a>
         <a mat-list-item (click)="logout()">Logout</a>
       } @else {
         <a mat-list-item routerLink="/login">Login</a>
