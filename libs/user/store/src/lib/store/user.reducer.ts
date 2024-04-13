@@ -3,26 +3,26 @@ import { User } from '../user';
 import { userActions } from './user.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserSession } from '../session';
+import { Token } from '../token';
 
 export interface UserState {
   user: User | null;
   error: HttpErrorResponse | null;
   userSession: UserSession | null;
-  token: string;
+  token: Token | null;
 }
 
 const initialState: UserState = {
   user: null,
   error: null,
   userSession: null,
-  token: '',
+  token: null,
 };
 
 const userReducer = createReducer(
   initialState,
-  on(userActions.createAccountSuccess, (state, { user }) => ({
+  on(userActions.createAccountSuccess, (state) => ({
     ...state,
-    user,
   })),
   on(userActions.emailLoginFailure, (state, { error }) => ({
     ...state,
@@ -40,6 +40,10 @@ const userReducer = createReducer(
     ...state,
     user: null,
     userSession: null,
+  })),
+  on(userActions.emailVerificationTokenSuccess, (state, { token }) => ({
+    ...state,
+    token: token,
   }))
 );
 

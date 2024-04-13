@@ -20,6 +20,7 @@ import {
   userActions,
   userFeature,
   sendVerifyEmail$,
+  verifyEmail$,
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
 import {
@@ -75,6 +76,7 @@ export const appConfig: ApplicationConfig = {
       snackBarAfterError$,
       getCurrentUser$,
       sendVerifyEmail$,
+      verifyEmail$,
     }),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
