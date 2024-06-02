@@ -1,0 +1,69 @@
+<span mat-dialog-title>New transaction</span>
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm" class="pt-1">
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>Payee</mat-label>
+      <input
+        matInput
+        placeholder="Enter payee"
+        type="text"
+        formControlName="counterPartyName"
+      />
+      @if (counterPartyName?.errors?.['required']) {
+        <mat-error>Payee is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>IBAN</mat-label>
+      <input
+        matInput
+        placeholder="Enter IBAN"
+        type="text"
+        formControlName="counterPartyIban"
+      />
+      @if (counterPartyIban?.errors?.['required']) {
+        <mat-error>IBAN is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        placeholder="Enter amount"
+        type="number"
+        step="0.01"
+        formControlName="amount"
+      />
+      <mat-icon matSuffix>euro</mat-icon>
+      @if (amount?.errors?.['required']) {
+        <mat-error>Amount is required</mat-error>
+      }
+      @if (amount?.errors?.['min']) {
+        <mat-error>Should be at least 0.01 €</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+      <mat-label>Reason for payment</mat-label>
+      <input
+        matInput
+        placeholder="Enter reason for payment"
+        type="text"
+        formControlName="e2eReference"
+      />
+      @if (e2eReference?.errors?.['maxlength']) {
+        <mat-error
+          >Maximum
+          {{ e2eReference?.errors?.['maxlength']?.requiredLength }} characters
+          allowed</mat-error
+        >
+      }
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" [disabled]="!form.valid">
+      Create transaction
+    </button>
+  </form>
+</mat-dialog-content>

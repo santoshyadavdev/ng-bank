@@ -16,10 +16,18 @@
     "baseUrl": ".",
     "paths": {
       "@ngbank/environment": ["libs/environment/src/index.ts"],
+      "@ngbank/transaction-domain": ["libs/transaction/domain/src/index.ts"],
+      "@ngbank/transaction-feature-list": [
+        "libs/transaction/feature-list/src/index.ts"
+      ],
+      "@ngbank/transaction-ui-common": [
+        "libs/transaction/ui-common/src/index.ts"
+      ],
       "@ngbank/ui": ["libs/shared/ui/src/index.ts"],
       "@ngbank/user/store": ["libs/user/store/src/index.ts"],
       "@ngbank/user/ui": ["libs/user/ui/src/index.ts"],
-      "@ngbank/util-auth": ["libs/shared/util-auth/src/index.ts"]
+      "@ngbank/util-auth": ["libs/shared/util-auth/src/index.ts"],
+      "@ngbank/util-entities": ["libs/shared/util-entities/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
