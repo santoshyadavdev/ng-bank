@@ -25,5 +25,11 @@ export const userActions = createActionGroup({
     createJWTTokenFailure: props<{ error: HttpErrorResponse }>(),
     logout: emptyProps(),
     getCurrentUserSuccess: props<{ user: User }>(),
+    resetPassword: props<{ email: string }>(),
+    resetPasswordSuccess: props<{
+      forward: string;
+      message?: string;
+    }>(),
+    resetPasswordFailure: props<{ error: HttpErrorResponse }>()
   },
 });

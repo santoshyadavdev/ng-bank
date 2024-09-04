@@ -21,6 +21,21 @@ export const userRoutes: Route[] = [
       ),
   },
   {
+    path: 'resetpassword',
+    loadComponent: () =>
+      import('./reset-password/reset-password.component').then(
+        (m) => m.ResetPasswordComponent
+      ),
+  },
+
+  {
+    path: 'updatepassword',
+    loadComponent: () =>
+      import('./update-password/update-password.component').then(
+        (m) => m.UpdatePasswordComponent
+      ),
+  },
+  {
     path: 'dashboard',
     loadComponent: () =>
       import('./dashboard/dashboard.component').then(

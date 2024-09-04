@@ -6,6 +6,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PasswordResetService } from '../password-reset.service';
 
 export const login$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
@@ -136,3 +137,30 @@ export const sendVerifyEmail$ = createEffect(
   },
   { functional: true, dispatch: false }
 );
+
+
+export const resetPassword$ = createEffect(
+  (actions$ = inject(Actions), passwordResetService = inject(PasswordResetService)) => {
+    return actions$.pipe(
+      ofType(userActions.resetPassword),
+      exhaustMap(({ email }) =>
+        passwordResetService.sendResetPasswordURL(email).pipe(
+          map((response) => 
+            userActions.resetPasswordSuccess({
+              forward: '/resetpassword',
+              message: 'Password recovery URL sent successfully. Please check your email.',
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.resetPasswordFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+
+
+
+
+)
