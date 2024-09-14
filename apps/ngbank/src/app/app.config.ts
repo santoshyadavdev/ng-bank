@@ -22,6 +22,7 @@ import {
   sendVerifyEmail$,
   resetPassword$,
   updatePassword$,
+  redirectAfterPasswordUpdate$,
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
 import {
@@ -75,6 +76,7 @@ export const appConfig: ApplicationConfig = {
       logout$,
       redirectAfterLogin$,
       snackBarAfterError$,
+      redirectAfterPasswordUpdate$,
       getCurrentUser$,
       sendVerifyEmail$,
       resetPassword$,

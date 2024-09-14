@@ -183,3 +183,21 @@ export const updatePassword$ = createEffect(
   { functional: true }
 )
 
+export const redirectAfterPasswordUpdate$ = createEffect(
+  (
+    actions$ = inject(Actions),
+    router = inject(Router),
+    snackBar: MatSnackBar = inject(MatSnackBar)
+  ) => {
+    return actions$.pipe(
+      ofType(userActions.updatePasswordSuccess),
+      tap((action) => {
+        if (action?.message) {
+          snackBar.open(action?.message);
+        }
+        router.navigateByUrl(action.forward);
+      })
+    );
+  },
+  { functional: true, dispatch: false }
+);
