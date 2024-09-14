@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { PasswordUpdateForm } from '../_models/password-update.model';
@@ -26,7 +25,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './update-password.component.html',
   styleUrl: './update-password.component.scss',
 })
-export class UpdatePasswordComponent {
+export class UpdatePasswordComponent{
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly store: Store = inject(Store);
 
@@ -53,8 +52,10 @@ export class UpdatePasswordComponent {
           validators: [Validators.required],
           nonNullable: true,
         })
-    });
-  }
+    },
+  {validator: this.passwordMatchValidator}
+  )}
+
 
   updatePassword() {
 
@@ -66,8 +67,7 @@ export class UpdatePasswordComponent {
       secret = queryParams['secret'];
     });
 
-    console.log('queryParams', userId, secret);
-      this.store.dispatch(
+    this.store.dispatch(
         userActions.updatePassword({
           userId: userId,
           secret: secret,
@@ -76,6 +76,13 @@ export class UpdatePasswordComponent {
       )
   }
 
-  
+  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const newPassword = group.get('newPassword')?.value.toString();
+    const confirmNewPassword = group.get('confirmNewPassword')?.value.toString();
+
+    return newPassword != confirmNewPassword ? { passwordMismatch: true } 
+ : null;
+  }
 
 }
+
