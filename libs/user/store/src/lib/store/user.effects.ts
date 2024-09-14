@@ -170,7 +170,7 @@ export const updatePassword$ = createEffect(
           map((response) => 
             userActions.updatePasswordSuccess({
               forward: '/login',
-              message: 'Password recovery URL sent successfully. Please check your email.',
+              message: 'Password reset successful. Please login.',
             })
           ),
           catchError((error: HttpErrorResponse) =>
