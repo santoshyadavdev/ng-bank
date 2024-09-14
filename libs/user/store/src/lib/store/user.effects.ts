@@ -169,7 +169,7 @@ export const updatePassword$ = createEffect(
         passwordResetService.updatePassword(userId, secret, password).pipe(
           map((response) => 
             userActions.updatePasswordSuccess({
-              forward: '/resetpassword',
+              forward: '/login',
               message: 'Password recovery URL sent successfully. Please check your email.',
             })
           ),
