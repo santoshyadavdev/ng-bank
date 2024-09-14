@@ -19,4 +19,12 @@ export class PasswordResetService {
     });
   }
 
+  updatePassword(userId : string, secret: string, password: string) {
+    return this.http.put(`${environment.apiEndpoint}/account/recovery`, {
+    userId: userId,
+    secret: secret,
+    password: password
+    });
+  }
+
 }

@@ -30,6 +30,15 @@ export const userActions = createActionGroup({
       forward: string;
       message?: string;
     }>(),
-    resetPasswordFailure: props<{ error: HttpErrorResponse }>()
+    resetPasswordFailure: props<{ error: HttpErrorResponse }>(),
+    updatePassword: props<{ userId : string, secret: string, password : string }>(),
+    updatePasswordSuccess: props<{
+      forward: string;
+      message?: string;
+    }>(),
+    updatePasswordFailure: props<{
+      error: HttpErrorResponse;
+    }>()
+
   },
 });

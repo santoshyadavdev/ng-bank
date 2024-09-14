@@ -21,6 +21,7 @@ import {
   userFeature,
   sendVerifyEmail$,
   resetPassword$,
+  updatePassword$,
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
 import {
@@ -76,7 +77,8 @@ export const appConfig: ApplicationConfig = {
       snackBarAfterError$,
       getCurrentUser$,
       sendVerifyEmail$,
-      resetPassword$
+      resetPassword$,
+      updatePassword$
     }),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states

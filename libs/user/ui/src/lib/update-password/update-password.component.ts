@@ -8,6 +8,8 @@ import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { FrontPageComponent } from '@ngbank/ui';
 import { MatIconModule } from '@angular/material/icon';
+import { userActions } from '@ngbank/user/store';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngbank-update-password',
@@ -18,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     FrontPageComponent,
     ReactiveFormsModule,
-    MatIconModule,
+    MatIconModule
   ],
 
   templateUrl: './update-password.component.html',
@@ -40,7 +42,7 @@ export class UpdatePasswordComponent {
   }
 
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.form = this.fb.group({
       newPassword: this.fb.control('', {
         validators: [Validators.required],
@@ -56,6 +58,24 @@ export class UpdatePasswordComponent {
 
   updatePassword() {
 
+    let userId = '';
+    let secret = '';
+
+    this.route.queryParams.subscribe(queryParams => {
+      userId = queryParams['userId'];
+      secret = queryParams['secret'];
+    });
+
+    console.log('queryParams', userId, secret);
+      this.store.dispatch(
+        userActions.updatePassword({
+          userId: userId,
+          secret: secret,
+          password: this.form.controls.newPassword.value.toString()
+        })
+      )
   }
+
+  
 
 }

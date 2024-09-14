@@ -159,8 +159,27 @@ export const resetPassword$ = createEffect(
     );
   },
   { functional: true }
-
-
-
-
 )
+
+export const updatePassword$ = createEffect(
+  (actions$ = inject(Actions), passwordResetService = inject(PasswordResetService)) => {
+    return actions$.pipe(
+      ofType(userActions.updatePassword),
+      exhaustMap(({ userId, secret, password }) =>
+        passwordResetService.updatePassword(userId, secret, password).pipe(
+          map((response) => 
+            userActions.updatePasswordSuccess({
+              forward: '/resetpassword',
+              message: 'Password recovery URL sent successfully. Please check your email.',
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.updatePasswordFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+)
+

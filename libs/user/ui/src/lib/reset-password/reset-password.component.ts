@@ -27,6 +27,8 @@ import { userActions } from '@ngbank/user/store';
 export class ResetPasswordComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly store: Store = inject(Store);
+  isPasswordReset : boolean = false;
+
 
   hidePassword = true;
 
@@ -47,6 +49,8 @@ export class ResetPasswordComponent {
   }
 
   resetPassword(){
+    this.isPasswordReset = true;
+    
     if(!!this.form.value.email){
       this.store.dispatch(
         userActions.resetPassword({
