@@ -1,14 +1,17 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { PageComponent } from '@ngbank/ui';
 import { Store } from '@ngrx/store';
-import { userFeature, userActions } from '@ngbank/user/store';
+import { User, userFeature, userActions } from '@ngbank/user/store';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+
 
 @Component({
   selector: 'ngbank-dashboard',
   standalone: true,
-  imports: [CommonModule, PageComponent, MatSnackBarModule],
+  imports: [CommonModule, PageComponent, MatSnackBarModule, AsyncPipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })

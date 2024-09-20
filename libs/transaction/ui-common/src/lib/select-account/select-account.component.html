@@ -1,0 +1,14 @@
+@if (accounts) {
+  <form [formGroup]="form">
+    <mat-form-field class="w-100">
+      <mat-label>Select account</mat-label>
+      <mat-select formControlName="account" name="account">
+        @for (account of accounts; track account) {
+          <mat-option [value]="account.$id">
+            {{ account.iban }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+}
