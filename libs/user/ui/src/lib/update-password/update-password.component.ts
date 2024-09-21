@@ -63,17 +63,16 @@ export class UpdatePasswordComponent{
     let secret = '';
 
     this.route.queryParams.subscribe(queryParams => {
-      userId = queryParams['userId'];
-      secret = queryParams['secret'];
-    });
-
-    this.store.dispatch(
+this.store.dispatch(
         userActions.updatePassword({
-          userId: userId,
-          secret: secret,
+          userId: queryParams['userId'],
+          secret: queryParams['secret'],
           password: this.form.controls.newPassword.value.toString()
         })
       )
+    });
+
+    
   }
 
   passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
