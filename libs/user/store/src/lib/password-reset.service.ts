@@ -15,7 +15,7 @@ export class PasswordResetService {
   sendResetPasswordURL(email: string) {
     return this.http.post(`${environment.apiEndpoint}/account/recovery`, {
     email: email,
-    url: 'http://localhost:4200/updatepassword'
+    url: `${location.origin}/updatepassword`
     });
   }
 
