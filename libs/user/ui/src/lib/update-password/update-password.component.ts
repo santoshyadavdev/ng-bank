@@ -58,12 +58,8 @@ export class UpdatePasswordComponent{
 
 
   updatePassword() {
-
-    let userId = '';
-    let secret = '';
-
     this.route.queryParams.subscribe(queryParams => {
-this.store.dispatch(
+    this.store.dispatch(
         userActions.updatePassword({
           userId: queryParams['userId'],
           secret: queryParams['secret'],

@@ -35,9 +35,7 @@ export const userActions = createActionGroup({
     }>(),
     updatePasswordFailure: props<{
       error: HttpErrorResponse;
-    }>()
-
-
+    }>(),
     sendEmailVerificationEmail: emptyProps(),
     emailVerificationTokenSuccess: props<{ token: Token }>(),
     verifyUserEmail: props<{ token: Token }>(),
