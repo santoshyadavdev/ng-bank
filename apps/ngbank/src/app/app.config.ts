@@ -23,6 +23,7 @@ import {
   resetPassword$,
   updatePassword$,
   redirectAfterPasswordUpdate$,
+  verifyEmail$
 } from '@ngbank/user/store';
 import { provideEffects } from '@ngrx/effects';
 import {
@@ -80,7 +81,8 @@ export const appConfig: ApplicationConfig = {
       getCurrentUser$,
       sendVerifyEmail$,
       resetPassword$,
-      updatePassword$
+      updatePassword$,
+      verifyEmail$,
     }),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states

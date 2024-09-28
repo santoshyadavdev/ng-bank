@@ -40,7 +40,7 @@ export class LoginService {
     return this.http.post<Token>(
       `${environment.apiEndpoint}/account/verification`,
       {
-        url: `${this.location.path()}`,
+        url: `${location.origin}/verify`,
       }
     );
   }

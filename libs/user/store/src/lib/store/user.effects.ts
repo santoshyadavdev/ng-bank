@@ -57,9 +57,8 @@ export const createAccount$ = createEffect(
       ofType(userActions.createAccount),
       exhaustMap(({ user }) =>
         loginService.createAccount(user).pipe(
-          map((user) =>
+          map(() =>
             userActions.createAccountSuccess({
-              user,
               forward: '/login',
               message: 'Account created successfully. Please log in.',
             })
@@ -81,7 +80,11 @@ export const redirectAfterLogin$ = createEffect(
     snackBar: MatSnackBar = inject(MatSnackBar)
   ) => {
     return actions$.pipe(
-      ofType(userActions.emailLoginSuccess, userActions.createAccountSuccess),
+      ofType(
+        userActions.emailLoginSuccess,
+        userActions.createAccountSuccess,
+        userActions.verifyUserEmailSuccess
+      ),
       tap((action) => {
         if (action?.message) {
           snackBar.open(action?.message);
@@ -124,10 +127,10 @@ export const snackBarAfterError$ = createEffect(
 export const sendVerifyEmail$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
     return actions$.pipe(
-      ofType(userActions.createAccount),
+      ofType(userActions.sendEmailVerificationEmail),
       exhaustMap(() =>
         loginService.createEmailVerification().pipe(
-          map((token) => console.log(token)),
+          map((token) => userActions.emailVerificationTokenSuccess({ token })),
           catchError((error: HttpErrorResponse) =>
             of(userActions.createAccountFailure({ error }))
           )
@@ -135,7 +138,29 @@ export const sendVerifyEmail$ = createEffect(
       )
     );
   },
-  { functional: true, dispatch: false }
+  { functional: true }
+);
+
+export const verifyEmail$ = createEffect(
+  (actions$ = inject(Actions), loginService = inject(LoginService)) => {
+    return actions$.pipe(
+      ofType(userActions.verifyUserEmail),
+      exhaustMap(({ token }) =>
+        loginService.verifyEmail(token.userId, token.secret).pipe(
+          map(() =>
+            userActions.verifyUserEmailSuccess({
+              forward: '/login',
+              message: 'Account created successfully. Please log in.',
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.createAccountFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
 );
 
 
