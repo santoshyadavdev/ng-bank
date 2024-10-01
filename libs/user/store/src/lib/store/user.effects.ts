@@ -6,6 +6,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PasswordResetService } from '../password-reset.service';
 
 export const login$ = createEffect(
   (actions$ = inject(Actions), loginService = inject(LoginService)) => {
@@ -160,4 +161,68 @@ export const verifyEmail$ = createEffect(
     );
   },
   { functional: true }
+);
+
+
+export const resetPassword$ = createEffect(
+  (actions$ = inject(Actions), passwordResetService = inject(PasswordResetService)) => {
+    return actions$.pipe(
+      ofType(userActions.resetPassword),
+      exhaustMap(({ email }) =>
+        passwordResetService.sendResetPasswordURL(email).pipe(
+          map((response) => 
+            userActions.resetPasswordSuccess({
+              forward: '/resetpassword',
+              message: 'Password recovery URL sent successfully. Please check your email.',
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.resetPasswordFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+)
+
+export const updatePassword$ = createEffect(
+  (actions$ = inject(Actions), passwordResetService = inject(PasswordResetService)) => {
+    return actions$.pipe(
+      ofType(userActions.updatePassword),
+      exhaustMap(({ userId, secret, password }) =>
+        passwordResetService.updatePassword(userId, secret, password).pipe(
+          map((response) => 
+            userActions.updatePasswordSuccess({
+              forward: '/login',
+              message: 'Password reset successful. Please login.',
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(userActions.updatePasswordFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+)
+
+export const redirectAfterPasswordUpdate$ = createEffect(
+  (
+    actions$ = inject(Actions),
+    router = inject(Router),
+    snackBar: MatSnackBar = inject(MatSnackBar)
+  ) => {
+    return actions$.pipe(
+      ofType(userActions.updatePasswordSuccess),
+      tap((action) => {
+        if (action?.message) {
+          snackBar.open(action?.message);
+        }
+        router.navigateByUrl(action.forward);
+      })
+    );
+  },
+  { functional: true, dispatch: false }
 );

@@ -36,6 +36,23 @@ const userReducer = createReducer(
     ...state,
     user,
   })),
+  on(userActions.resetPasswordSuccess, (state, { message }) => ({
+    ...state,
+    message,
+  })),
+
+  on(userActions.resetPasswordFailure, (state, { error }) => ({
+    ...state,
+    error,
+  })),
+  on(userActions.updatePasswordSuccess, (state, { forward, message }) => ({
+    ...state,
+
+  })),
+  on(userActions.updatePasswordFailure, (state, { error }) => ({
+    ...state,
+
+  })),
   on(userActions.logout, (state) => ({
     ...state,
     user: null,

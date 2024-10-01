@@ -22,9 +22,24 @@ export const userActions = createActionGroup({
     emailLoginFailure: props<{ error: HttpErrorResponse }>(),
     logout: emptyProps(),
     getCurrentUserSuccess: props<{ user: User }>(),
+    resetPassword: props<{ email: string }>(),
+    resetPasswordSuccess: props<{
+      forward: string;
+      message?: string;
+    }>(),
+    resetPasswordFailure: props<{ error: HttpErrorResponse }>(),
+    updatePassword: props<{ userId : string, secret: string, password : string }>(),
+    updatePasswordSuccess: props<{
+      forward: string;
+      message?: string;
+    }>(),
+    updatePasswordFailure: props<{
+      error: HttpErrorResponse;
+    }>(),
     sendEmailVerificationEmail: emptyProps(),
     emailVerificationTokenSuccess: props<{ token: Token }>(),
     verifyUserEmail: props<{ token: Token }>(),
     verifyUserEmailSuccess: props<{ forward: string; message?: string }>(),
+
   },
 });
